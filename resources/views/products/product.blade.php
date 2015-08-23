@@ -4,7 +4,8 @@
 
         <div class="caption">
             <h4 class="pull-right">$24.99</h4>
-            <h4><a href="{{route('category.subcategory.products.show', [$product->subcategories->first()->category->slug, $product->subcategories->first()->slug, $product->id])}}">{{ $product->name }}</a>
+            <h4>
+                <a href="{{route('category.subcategory.products.show', [$product->subcategories->first()->category->slug, $product->subcategories->first()->slug, $product->id])}}">{{ $product->name }}</a>
             </h4>
 
             <p>{{ $product->description }}</p>

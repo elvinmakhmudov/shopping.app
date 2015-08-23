@@ -2,6 +2,10 @@
 
 @section('content')
 
-    @include('pages.partials.product')
+    <div class="container">
+        <div class="row">
+            @include('pages.partials.product')
+        </div>
+    </div>
 
 @endsection

@@ -27,7 +27,7 @@
                             @if($subcategory->products->count() > 0)
                                 <h4><a href="{{route('category.subcategory.show', [$category->slug, $subcategory->slug])}}">{{$subcategory->title}}</a></h4>
                                 @foreach($subcategory->products as $product)
-                                    @include('products.product')
+                                    @include('products.product', ['product' => $product])
                                 @endforeach
                                 <div class="clearfix"></div>
                             @endif

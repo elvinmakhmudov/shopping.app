@@ -12,5 +12,18 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.less('app.less');
+    mix.styles([
+        'bootstrap.min.css',
+        'shop-homepage.css',
+        'addons/bootstrap/jquery.smartmenus.bootstrap.css'
+    ]);
+
+    mix.scripts([
+        'jquery.js',
+        'bootstrap.min.js',
+        'jquery.smartmenus.min.js',
+        'addons/bootstrap/jquery.smartmenus.bootstrap.js',
+        'app.js'
+    ]);
+    mix.version(['css/all.css', 'js/all.js']);
 });
