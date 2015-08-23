@@ -33,7 +33,7 @@ class AdminMiddleware {
 	{
         $response = $next($request);
 
-        if ( ! $this->auth->user()->is_admin )
+        if ( ! ( $this->auth->check() && $this->auth->user()->is_admin ) )
         {
             if ($request->ajax())
             {

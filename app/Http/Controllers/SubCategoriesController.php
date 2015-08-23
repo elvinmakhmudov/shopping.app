@@ -1,11 +1,14 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use App\Shop\Models\Category;
-use App\Shop\Models\Product;
-use App\Shop\Models\Subcategory;
+use App\Http\Controllers\Controller;
 
-class PagesController extends Controller {
+use App\Shop\Models\Category;
+use App\Shop\Models\Subcategory;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
+
+class SubCategoriesController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -14,9 +17,7 @@ class PagesController extends Controller {
 	 */
 	public function index()
 	{
-        $categories = Category::with('subcategories.products.reviews')->get();
-
-        return view('pages/index', compact('categories'));
+		//
 	}
 
 	/**
@@ -39,15 +40,25 @@ class PagesController extends Controller {
 		//
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
+    /**
+     * Display the specified resource.
+     *
+     * @param $categorySlug
+     * @param $subcategorySlug
+     * @return Response
+     */
+	public function show($categorySlug, $subcategorySlug)
 	{
-		//
+        $category = Category::findBySlugOrFail($categorySlug);
+
+        $subcategory = $category->subcategories()->where('slug', $subcategorySlug)->first();
+        if ( ! $subcategory ) {
+            throw new ModelNotFoundException;
+        }
+
+        $products = $subcategory->products()->with('reviews')->get();
+
+        return view('subcategories.show', compact('category', 'subcategory', 'products'));
 	}
 
 	/**
@@ -82,10 +93,5 @@ class PagesController extends Controller {
 	{
 		//
 	}
-
-    public function about()
-    {
-        return view('pages.about');
-    }
 
 }

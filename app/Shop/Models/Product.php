@@ -5,18 +5,17 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model {
 
     protected $table = 'products';
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description', 'rating', 'price'];
 
     /**
-     * A product belongs to one category
+     * A product belongs to many subcategories
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function category()
+    public function subcategories()
     {
-        return $this->belongsTo('App\Shop\Models\Category');
+        return $this->belongsToMany('App\Shop\Models\Subcategory');
     }
-
     /**
      * A product has many reviews
      *

@@ -22,12 +22,8 @@ body {
 }
 
 .caption {
-    height: 130px;
+    height: 150px;
     overflow: hidden;
-}
-
-.caption h4 {
-    white-space: nowrap;
 }
 
 .thumbnail img {
@@ -42,6 +38,7 @@ body {
 
 .thumbnail {
     padding: 0;
+    border: none;
 }
 
 .thumbnail .caption-full {
@@ -51,4 +48,30 @@ body {
 
 footer {
     margin: 50px 0;
+}
+
+/* Custom styles */
+
+.list-group-item:first-child {
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+}
+
+.list-group-item:last-child {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+.menu-item {
+    position: relative;
+}
+
+.sub-menu {
+    display: none;
+    text-indent: 5%;
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    /*width: 100%;*/
+    /*left: 100%;*/
+    /*z-index: 2;*/
 }

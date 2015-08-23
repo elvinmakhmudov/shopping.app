@@ -1,3 +1,5 @@
+@include('partials.header')
+
 @include('partials.nav')
 
 @yield('content')

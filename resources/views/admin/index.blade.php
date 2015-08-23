@@ -2,15 +2,17 @@
 
 @section('content')
 
-    <div class="container">
-        <div class="list-group">
-            <a href="#" class="list-group-item active">
-                Cras justo odio
-            </a>
-            <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-            <a href="#" class="list-group-item">Morbi leo risus</a>
-            <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-            <a href="#" class="list-group-item">Vestibulum at eros</a>
+    <div class="row col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
+
+        @include('admin.partials.sidebar')
+
+        <div class="row col-md-7">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Panel heading</div>
+                <div class="panel-body">
+                    Panel content
+                </div>
+            </div>
         </div>
     </div>
 

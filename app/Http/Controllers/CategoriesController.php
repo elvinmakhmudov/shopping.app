@@ -1,11 +1,17 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use App\Shop\Models\Category;
-use App\Shop\Models\Product;
-use App\Shop\Models\Subcategory;
+use App\Http\Controllers\Controller;
 
-class PagesController extends Controller {
+use App\Shop\Models\Category;
+use Illuminate\Http\Request;
+
+class CategoriesController extends Controller {
+
+    public function __construct()
+    {
+        $this->middleware('admin', ['except' => ['index', 'show']]);
+    }
 
 	/**
 	 * Display a listing of the resource.
@@ -14,9 +20,9 @@ class PagesController extends Controller {
 	 */
 	public function index()
 	{
-        $categories = Category::with('subcategories.products.reviews')->get();
-
-        return view('pages/index', compact('categories'));
+        $categories = Category::all();
+        return view('categories.index', compact('categories'));
+		//
 	}
 
 	/**
@@ -39,15 +45,19 @@ class PagesController extends Controller {
 		//
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
+    /**
+     * Display the specified resource.
+     *
+     * @param $slug
+     * @return Response
+     */
+	public function show($slug)
 	{
-		//
+        $category = Category::findBySlugOrFail($slug);
+
+        $subcategories = $category->subcategories()->with('products.reviews')->get();
+
+        return view('categories.show', compact('category', 'subcategories'));
 	}
 
 	/**
@@ -82,10 +92,5 @@ class PagesController extends Controller {
 	{
 		//
 	}
-
-    public function about()
-    {
-        return view('pages.about');
-    }
 
 }

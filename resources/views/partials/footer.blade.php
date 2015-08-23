@@ -20,6 +20,12 @@
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
 
+<!-- SmartMenus jQuery plugin -->
+<script type="text/javascript" src="/js/jquery.smartmenus.min.js"></script>
+
+<!-- SmartMenus jQuery Bootstrap Addon -->
+<script type="text/javascript" src="/js/addons/bootstrap/jquery.smartmenus.bootstrap.js"></script>
+<script type="text/javascript" src="/js/app.js"></script>
 </body>
 </html>
 
