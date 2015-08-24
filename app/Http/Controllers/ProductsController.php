@@ -80,7 +80,7 @@ class ProductsController extends Controller
         $product = Product::findOrFail($productId);
 
         //write a logic to show a specific product
-        return view('products.show', compact('product'));
+        return view('products.show', compact('category','subcategory','product','test'));
     }
 
     /**

@@ -25,4 +25,12 @@ class Product extends Model {
     {
         return $this->hasMany('App\Shop\Models\Review');
     }
+
+    /**
+     * @return mixed
+     */
+    public function categories()
+    {
+//        return $this->hasManyThrough('App\Shop\Models\Category', 'App\Shop\Models\Subcategory');
+    }
 }

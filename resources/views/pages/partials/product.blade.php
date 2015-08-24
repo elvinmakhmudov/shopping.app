@@ -11,6 +11,10 @@
 </div>
 
 <div class="col-md-6 col-lg-6">
+    <ol class="breadcrumb">
+        <li><a href="{{route('category.show', $category->slug)}}">{{ $category->title }}</a></li>
+        <li class="active">{{ $subcategory->title}}</li>
+    </ol>
     <h3>
         <a href="{{route('category.subcategory.products.show', [$product->subcategories->first()->category->slug, $product->subcategories->first()->slug, $product->id])}}">{{ $product->name }}</a>
     </h3>

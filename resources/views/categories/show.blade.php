@@ -19,7 +19,10 @@
                     <h2>{{$category->title}}</h2>
                     @foreach($subcategories as $subcategory)
                         @if($subcategory->products->count() > 0)
-                            <h4>{{$subcategory->title}}</h4>
+                            <ol class="breadcrumb">
+                                <li><a href="{{route('category.show', $category->slug)}}">{{ $category->title }}</a></li>
+                                <li class="active">{{ $subcategory->title}}</li>
+                            </ol>
                             @foreach($subcategory->products as $product)
                                 @include('products.product')
                             @endforeach

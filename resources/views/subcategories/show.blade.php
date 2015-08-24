@@ -14,14 +14,15 @@
             </div>
 
             <div class="col-md-9">
-
-                    <div class="row">
-                        <h1>{{$category->title}}</h1>
-                        <h2>{{$subcategory->title}}</h2>
-                            @foreach($products as $product)
-                                @include('products.product')
-                            @endforeach
-                    </div>
+                <div class="row">
+                    <ol class="breadcrumb">
+                        <li><a href="{{route('category.show', $category->slug)}}">{{ $category->title }}</a></li>
+                        <li class="active">{{ $subcategory->title}}</li>
+                    </ol>
+                    @foreach($products as $product)
+                        @include('products.product')
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>
