@@ -91,17 +91,17 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
     //    $(this).children('.sub-menu').stop().fadeOut(200);
     //});
 
-    var module = {
-        init: function (data) {
-            this.container = data.container;
-            this.effect = data.effect;
-            this.speed = data.speed || 200;
-            this.toggleClass = data.toggleClass;
-            this.subMenu = data.subMenu;
-            this.doEffect();
-        },
-        doEffect: function () {
-            var self = this;
+var module = {
+    init: function (data) {
+        this.container = data.container;
+        this.effect = data.effect;
+        this.speed = data.speed || 200;
+        this.toggleClass = data.toggleClass;
+        this.subMenu = data.subMenu;
+        this.doEffect();
+    },
+    doEffect: function () {
+        var self = this;
             // this.container.on('click', function (e) {
             //     var inner = this;
             //     //toggle class 'active'
@@ -115,26 +115,26 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
             //         $(inner).children().last().stop()[self.effect](self.speed);
             //         $(inner).removeEventListener('mouseout', fn);
             //     }
-            //     $(this).on('mouseout', fn);
+                // $(this).on('mouseout', fn);
             //     e.preventDefault();
             // });
-            this.container.hover(function (e) {
-               $(this).children().first().toggleClass(self.toggleClass);
-               $(this).children().last().stop()[self.effect](this.speed);
-            }, function () {
-               $(this).children().first().toggleClass(self.toggleClass);
-               $(this).children().last().stop()[self.effect](this.speed);
-            });
-        }
+        this.container.hover(function (e) {
+            $(this).children().first().toggleclass(self.toggleclass);
+            $(this).children().last().stop()[self.effect](this.speed);
+        }, function () {
+            $(this).children().first().toggleclass(self.toggleclass);
+            $(this).children().last().stop()[self.effect](this.speed);
+        });
     }
+}
 
-    module.init({
-        container: $('.menu-item'),
-        subMenu: $('.sub-menu'),
-        effect: 'slideToggle',
-        speed: 200,
-        toggleClass: 'active'
-    });
+module.init({
+    container: $('.menu-item'),
+    subMenu: $('.sub-menu'),
+    effect: 'slideToggle',
+    speed: 200,
+    toggleClass: 'active'
+});
 
 })(jQuery)
 //# sourceMappingURL=all.js.map

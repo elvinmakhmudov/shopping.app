@@ -3,6 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Schema;
+use Kalnoy\Nestedset\NestedSet;
 
 class CreateCategoriesTable extends Migration {
 
@@ -20,6 +21,7 @@ class CreateCategoriesTable extends Migration {
             $table->string('slug')->unique();
             $table->timestamps();
             $table->softDeletes();
+            NestedSet::columns($table);
         });
 	}
 

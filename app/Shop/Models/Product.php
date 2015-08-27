@@ -8,15 +8,6 @@ class Product extends Model {
     protected $fillable = ['name', 'description', 'rating', 'price'];
 
     /**
-     * A product belongs to many subcategories
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function subcategories()
-    {
-        return $this->belongsToMany('App\Shop\Models\Subcategory');
-    }
-    /**
      * A product has many reviews
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -31,6 +22,6 @@ class Product extends Model {
      */
     public function categories()
     {
-//        return $this->hasManyThrough('App\Shop\Models\Category', 'App\Shop\Models\Subcategory');
+        return $this->belongsToMany('App\Shop\Models\Category', 'product_category');
     }
 }

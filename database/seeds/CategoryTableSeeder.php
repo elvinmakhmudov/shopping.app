@@ -3,7 +3,8 @@
 use App\Shop\Models\Category;
 use Illuminate\Database\Seeder;
 
-class CategoryTableSeeder extends Seeder {
+class CategoryTableSeeder extends Seeder
+{
 
     /**
      * Run the database seeds.
@@ -12,29 +13,34 @@ class CategoryTableSeeder extends Seeder {
      */
     public function run()
     {
-        DB::table('products')->truncate();
+        DB::table('categories')->truncate();
         $faker = Faker\Factory::create();
         $faker->addProvider(new Faker\Provider\Lorem($faker));
-        $howMany = 5;
+        $howMany = 10;
 
-        for($i = 0; $i < $howMany; $i++) {
+        $parent_ids = [];
+        for ($i = 0; $i < $howMany; $i++) {
             $title = $faker->sentence(2);
-            Category::create([
+            $node = Category::create([
                 'title' => $title,
-                'slug' => $this->seoUrl($title)
+                'slug' => str_slug($title),
             ]);
+            $this->setRandomParent($node, $parent_ids, $faker);
         }
     }
 
-    public function seoUrl($string) {
-        //Lower case everything
-        $string = strtolower($string);
-        //Make alphanumeric (removes all other characters)
-        $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);
-        //Clean up multiple dashes or whitespaces
-        $string = preg_replace("/[\s-]+/", " ", $string);
-        //Convert whitespaces and underscore to dash
-        $string = preg_replace("/[\s_]/", "-", $string);
-        return $string;
+    /**
+     * Set a random parent for each category
+     *
+     * @param $node
+     * @param $parent_ids
+     * @param $faker
+     */
+    public function setRandomParent($node, &$parent_ids, $faker)
+    {
+        $parent_ids[] = $node->id;
+        $parent_id = $faker->randomElement($parent_ids);
+        $node->parent_id = ($parent_id == $node->id) ? null : $parent_id;
+        $node->save();
     }
 }

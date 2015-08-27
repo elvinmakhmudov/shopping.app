@@ -13,13 +13,13 @@ class ProductTableSeeder extends Seeder {
     public function run()
     {
         DB::table('products')->truncate();
-        DB::table('product_subcategory')->truncate();
+        DB::table('product_category')->truncate();
         $faker = Faker\Factory::create();
         $faker->addProvider(new Faker\Provider\Lorem($faker));
         $faker->addProvider(new Faker\Provider\en_US\Person($faker));
         $faker->addProvider(new Faker\Provider\Base($faker));
         $productsCount = 15;
-        $subcategoriesCount = 10;
+        $categoriesCount = 10;
 
         for($i = 0; $i < $productsCount; $i++) {
            $product = Product::create([
@@ -29,9 +29,9 @@ class ProductTableSeeder extends Seeder {
                 'price' => $faker->numberBetween(1, 500),
             ]);
 
-            $subcategoryId = $faker->numberBetween(1, $subcategoriesCount);
+            $categoryId = $faker->numberBetween(1, $categoriesCount);
 
-            $product->subcategories()->attach($subcategoryId);
+            $product->categories()->attach($categoryId);
         }
     }
 }

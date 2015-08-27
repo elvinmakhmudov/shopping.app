@@ -1,23 +1,13 @@
 <?php namespace App\Shop\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Kalnoy\Nestedset\Node;
 
-class Category extends Model {
+class Category extends Node {
 
     protected $table = 'categories';
 
     protected $fillable = ['name'];
-
-    /**
-     * A category has many subcategories
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function subcategories()
-    {
-        return $this->hasMany('App\Shop\Models\Subcategory');
-    }
 
     /**
      * Find category by its name
@@ -32,5 +22,15 @@ class Category extends Model {
         }
 
         throw new ModelNotFoundException;
+    }
+
+    /**
+     * A category belongs to many products
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function products()
+    {
+        return $this->belongsToMany('App\Shop\Models\Product', 'product_category');
     }
 }

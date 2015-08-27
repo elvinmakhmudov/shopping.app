@@ -63,15 +63,28 @@ footer {
 }
 .menu-item {
     position: relative;
+    list-style-type: none;
 }
 
-.sub-menu {
-    display: none;
-    text-indent: 5%;
+.sub-menu-item {
+    /*text-indent: 5%;*/
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
     /*position: absolute;*/
     /*top: 0;*/
     /*left: 0;*/
     /*width: 100%;*/
     /*left: 100%;*/
     /*z-index: 2;*/
+}
+
+.sub-menu-item a {
+    border: none;
+}
+
+.menu-item > li > a {
+    color: #ffffff;
+    border: none;
+    background-color: #1995dc;
 }
