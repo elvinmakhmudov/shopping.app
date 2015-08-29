@@ -4,7 +4,7 @@
  * For details, see http://www.apache.org/licenses/LICENSE-2.0.
  */
 
-body {
+ body {
     padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
@@ -79,12 +79,15 @@ footer {
     /*z-index: 2;*/
 }
 
-.sub-menu-item a {
-    border: none;
-}
-
-.menu-item > li > a {
-    color: #ffffff;
-    border: none;
-    background-color: #1995dc;
+.caret-right {
+    float: right;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-top: 8px;
+    vertical-align: middle;
+    border-top: 4px dashed;
+    border-top: 4px solid \9;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
 }

@@ -6,11 +6,11 @@
     <div class="row">
 
         <div class="col-md-3">
-            <p class="lead">Shop Name</p>
-
             <div class="categories">
                 @include('pages.partials.nav.categories', $categories)
             </div>
+            <a href="javascript:void(0)" class="btn btn-primary">Default</a>
+            <a href="javascript:void(0)" class="btn btn-flat btn-success">Success</a>
         </div>
 
         <div class="col-md-9">

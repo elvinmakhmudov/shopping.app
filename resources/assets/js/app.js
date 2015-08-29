@@ -1,53 +1,42 @@
 (function ($) {
-    //$('.menu-item').hover(function (e) {
-    //    $(this).children('.sub-menu').stop().fadeIn(200);
-    //}, function () {
-    //    $(this).children('.sub-menu').stop().fadeOut(200);
-    //});
+    var module = {
+       init: function (data) {
+           this.container = data.container;
+           this.effect = data.effect;
+           this.speed = data.speed || 200;
+           this.toggleClass = data.toggleClass;
+           this.subMenu = data.subMenu;
+           this.when = data.when;
+           this.done = data.done;
+           this.doEffect();
+       },
+       doEffect: function () {
+           var self = this;
+           this.container[self.when](function (e) {
+                var child;
+                e.preventDefault();
 
-var module = {
-    init: function (data) {
-        this.container = data.container;
-        this.effect = data.effect;
-        this.speed = data.speed || 200;
-        this.toggleClass = data.toggleClass;
-        this.subMenu = data.subMenu;
-        this.doEffect();
-    },
-    doEffect: function () {
-        var self = this;
-            // this.container.on('click', function (e) {
-            //     var inner = this;
-            //     //toggle class 'active'
-            //     $(this).children().first().toggleClass(self.toggleClass);
+                child = $(this).children(self.subMenu);
 
-            //     //find the submenu class and toggle the given effect
-            //     $(this).children('.sub-menu').stop()[self.effect](self.speed);
+                child[self.effect](self.speed);
 
-            //     var fn = function (e) {
-            //         $(inner).children().first().toggleClass(self.toggleClass);
-            //         $(inner).children().last().stop()[self.effect](self.speed);
-            //         $(inner).removeEventListener('mouseout', fn);
-            //     }
-                // $(this).on('mouseout', fn);
-            //     e.preventDefault();
-            // });
-        this.container.hover(function (e) {
-            $(this).children().first().toggleclass(self.toggleclass);
-            $(this).children().last().stop()[self.effect](this.speed);
-        }, function () {
-            $(this).children().first().toggleclass(self.toggleclass);
-            $(this).children().last().stop()[self.effect](this.speed);
-        });
+                child[self.when](function(e) {
+                    e.stopPropagation();
+                })
+           });
+       }
     }
-}
 
-module.init({
-    container: $('.menu-item'),
-    subMenu: $('.sub-menu'),
-    effect: 'slideToggle',
-    speed: 200,
-    toggleClass: 'active'
-});
+    module.init({
+       container: $('.parent'),
+       subMenu: 'ul',
+       effect: 'slideToggle',
+       speed: 400,
+       toggleClass: 'active',
+       when: 'click'
+    });
 
+    $.material.init();
+
+    $('.parent').children('ul').hide();
 })(jQuery)

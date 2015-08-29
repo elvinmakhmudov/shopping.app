@@ -1,15 +1,17 @@
 @if($categories->count() > 0)
-    <ul class="menu-item list-group">
-        @foreach($categories as $category)
-            {{--<!-- <div class="menu-item">--}}
-            {{--<a href="{{ route('category.show', $category->slug) }}" class="list-group-item"> {{ $category->title }}</a>--}}
-            {{--@include('pages.partials.nav.subCategories', $category)--}}
-            {{--</div>--}}
-            {{---->--}}
-            <li>
-                <a class="list-group-item" href="{{ route('category.show', $category->slug) }}"> {{ $category->title }}</a>
-                @include('pages.partials.nav.subCategories', $category)
+
+<ul class="nav nav-tabs nav-stacked">
+    @foreach($categories as $category)
+        @if(count($category->children) > 0)
+            <li class="parent">
+                <a href="{{ route('category.show', $category->slug) }}"> {{ $category->title }} <span class="caret-right"></span></a> 
+                @include('pages.partials.nav.subCategories', $category) 
             </li>
-        @endforeach
-    </ul>
+        @else
+            <li>
+                <a href="{{ route('category.show', $category->slug) }}"> {{ $category->title }}</a>
+            </li>
+        @endif
+    @endforeach
+</ul>
 @endif
