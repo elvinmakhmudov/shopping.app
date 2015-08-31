@@ -1,6 +1,7 @@
 <div class="col-sm-4 col-lg-4 col-md-4">
     <div class="thumbnail">
         <img src="http://placehold.it/150x100" class="img" alt="">
+        <span class="card-title">Card Title</span>
 
         <div class="caption">
             <h4>
