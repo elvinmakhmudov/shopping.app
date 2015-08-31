@@ -68,19 +68,14 @@ class ProductsController extends Controller
      * @return Response
      * @throws ModelNotFoundException
      */
-    public function show($categorySlug, $subcategorySlug, $productId)
+    public function show($categorySlug, $productId)
     {
         $category = Category::findBySlugOrFail($categorySlug);
 
-        $subcategory = $category->subcategories()->where('slug', $subcategorySlug)->first();
-        if ( ! $subcategory ) {
-            throw new ModelNotFoundException;
-        }
-
-        $product = Product::findOrFail($productId);
+        $product = $category->products()->find($productId)->get();
 
         //write a logic to show a specific product
-        return view('products.show', compact('category','subcategory','product','test'));
+        return view('products.show', compact('category', 'product'));
     }
 
     /**

@@ -55,9 +55,7 @@ class CategoriesController extends Controller {
 	{
         $category = Category::findBySlugOrFail($slug);
 
-        $subcategories = $category->subcategories()->with('products.reviews')->get();
-
-        return view('categories.show', compact('category', 'subcategories'));
+        return view('categories.show', compact('category'));
 	}
 
 	/**

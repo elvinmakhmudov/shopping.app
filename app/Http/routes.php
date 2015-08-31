@@ -27,8 +27,7 @@ Route::controllers([
 ]);
 
 Route::resource('category', 'CategoriesController');
-Route::resource('category.subcategory', 'SubCategoriesController');
-Route::resource('category.subcategory.products', 'ProductsController');
+Route::resource('category.products', 'ProductsController');
 
 //Event::listen('illuminate.query', function($sql) {
 //    var_dump($sql);

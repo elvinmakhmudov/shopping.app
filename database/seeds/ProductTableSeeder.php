@@ -18,7 +18,7 @@ class ProductTableSeeder extends Seeder {
         $faker->addProvider(new Faker\Provider\Lorem($faker));
         $faker->addProvider(new Faker\Provider\en_US\Person($faker));
         $faker->addProvider(new Faker\Provider\Base($faker));
-        $productsCount = 15;
+        $productsCount = 50;
         $categoriesCount = 10;
 
         for($i = 0; $i < $productsCount; $i++) {

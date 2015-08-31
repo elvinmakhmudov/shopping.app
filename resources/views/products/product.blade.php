@@ -1,14 +1,11 @@
-<div class="col-sm-4 col-lg-3 col-md-3">
+<div class="col-sm-4 col-lg-4 col-md-4">
     <div class="thumbnail">
-        <img src="http://placehold.it/150x100" class="img-rounded" alt="">
+        <img src="http://placehold.it/150x100" class="img" alt="">
 
         <div class="caption">
-            <h4 class="pull-right">$24.99</h4>
             <h4>
-                <a href="{{route('category.subcategory.products.show', [$product->subcategories->first()->category->slug, $product->subcategories->first()->slug, $product->id])}}">{{ $product->name }}</a>
+                <a href="{{route('category.products.show', [$product->categories->first()->slug, $product->id])}}">{{ $product->name }}</a>
             </h4>
-
-            <p>{{ $product->description }}</p>
         </div>
         <div class="ratings">
             <p class="pull-right">{{ $product->reviews->count() }} reviews</p>
