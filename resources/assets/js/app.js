@@ -45,6 +45,4 @@
         });
 
  $.material.init();
-
- $('.parent').children('ul').hide();
 })(jQuery)

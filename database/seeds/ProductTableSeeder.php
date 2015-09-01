@@ -32,6 +32,7 @@ class ProductTableSeeder extends Seeder {
             $categoryId = $faker->numberBetween(1, $categoriesCount);
 
             $product->categories()->attach($categoryId);
+
         }
     }
 }

@@ -63,16 +63,14 @@ class ProductsController extends Controller
      * Display the specified resource.
      *
      * @param $categorySlug
-     * @param $subcategorySlug
      * @param $productId
      * @return Response
-     * @throws ModelNotFoundException
      */
     public function show($categorySlug, $productId)
     {
         $category = Category::findBySlugOrFail($categorySlug);
 
-        $product = $category->products()->find($productId)->get();
+        $product = $category->products()->find($productId);
 
         //write a logic to show a specific product
         return view('products.show', compact('category', 'product'));

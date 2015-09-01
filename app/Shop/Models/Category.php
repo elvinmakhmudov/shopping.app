@@ -33,4 +33,25 @@ class Category extends Node {
     {
         return $this->belongsToMany('App\Shop\Models\Product', 'product_category');
     }
+
+    /**
+     * get all chilren recursively
+     *
+     * @return mixed
+     */
+    public function children()
+    {
+        //call parent class function
+        return $this->hasMany(get_class($this), static::PARENT_ID)->with('products.reviews');
+    }
+
+    /**
+     * A category has many reviews through products
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function reviews()
+    {
+        return $this->hasManyThrough('App\Shop\Models\Review', 'App\Shop\Models\Product');
+    }
 }

@@ -4,7 +4,7 @@
 
     <div class="container">
         <div class="row">
-            @include('pages.partials.product')
+            @include('products.product', ['category' => $category, 'product' => $product])
         </div>
     </div>
 

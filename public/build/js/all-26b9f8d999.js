@@ -63,7 +63,5 @@ d.trigger("activate.bs.scrollspy")},b.prototype.clear=function(){a(this.selector
         });
 
  $.material.init();
-
- $('.parent').children('ul').hide();
 })(jQuery)
 //# sourceMappingURL=all.js.map

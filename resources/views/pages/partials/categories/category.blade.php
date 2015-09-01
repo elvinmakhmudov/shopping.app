@@ -2,7 +2,7 @@
     <a href="{{route('category.show', [$category->slug])}}">{{$category->title}}</a>
 </h4>
 @foreach($category->products as $product)
-    @include('products.product', ['product' => $product])
+    @include('pages.partials.product', ['product' => $product])
 @endforeach
 <div class="clearfix"></div>
 @if(count($category->children) > 0 )
