@@ -1,12 +1,8 @@
-/*!
+!
  * Start Bootstrap - Shop Homepage HTML Template (http://startbootstrap.com)
  * Code licensed under the Apache License v2.0.
  * For details, see http://www.apache.org/licenses/LICENSE-2.0.
  */
-
- body {
-    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-}
 
 .slide-image {
     width: 100%;
@@ -35,24 +31,25 @@
 }
 
 .thumbnail {
+    position: relative;
     overflow: hidden;
     clear: both;
-}
-
-.ratings {
-    padding-right: 10px;
-    padding-left: 10px;
-    color: #d17581;
-}
-
-.thumbnail {
-    position: relative;
     border-radius: 0;
     padding: 0;
     border: none;
     -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
     -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
     box-shadow: 4 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.thumbnail .caption {
+    padding: 0;
+}
+
+.ratings {
+    padding-right: 10px;
+    padding-left: 10px;
+    color: #d17581;
 }
 
 .thumbnail .caption-full {
@@ -103,18 +100,63 @@ footer {
     box-shadow: 4 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
-j.categories {
+.categories {
+    margin-bottom: 20px;
     -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),0 2px 10px 0 rgba(0, 0, 0, 0.12);
     -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
     box-shadow: 4 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
-.card-title {
-    position: absolute;
-    top: 115px;
-    left: 0;
-    padding: 20px;
-    color: #fff;
-    font-size: 24px;
-    font-weight: 300;
+.card {
+    position: relative;
+    overflow: hidden;
+    clear:both;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    margin: 0.5rem 0    1rem 0;
+    background-color: #fff;
+    transition: box-shadow .25s;
 }
+
+.card .card-image img {
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+
+.card-image, .card-title {
+    color: #fff;
+    position: absolute;
+    font-size: 14px;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+}
+
+.card-title {
+    width: 100%;
+    padding: 5px;
+}
+
+
+/*.card-title {*/
+    /*color: #fff;*/
+    /*font-size: 14px;*/
+    /*font-weight: 300;*/
+    /*text-align: center;*/
+/*}*/
+
+/*.card-image img {*/
+    /*border-radius: 2px 2px 0 0;*/
+    /*position: relative;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    /*top: 0;*/
+    /*bottom: 0;*/
+    /*width: 100%;*/
+/*}

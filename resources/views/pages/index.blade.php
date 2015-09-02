@@ -15,9 +15,10 @@
 
                 @include('pages.partials.slider')
 
-                @include('pages.partials.categories.categories', $categories)
 
             </div>
+
+            @include('pages.partials.categories.categories', $categories)
         </div>
     </div>
     <!-- /.container -->

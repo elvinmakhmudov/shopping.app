@@ -11,7 +11,7 @@ class CategoriesController extends Controller
 
     public function __construct()
     {
-        $this->middleware('admin', ['except' => ['index', 'show']]);
+        $this->middleware('admin', ['except' => 'show']);
     }
 
     /**
@@ -22,8 +22,8 @@ class CategoriesController extends Controller
     public function index()
     {
         $categories = Category::all();
+
         return view('categories.index', compact('categories'));
-        //
     }
 
     /**
@@ -33,6 +33,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
+        return view('categories.create');
         //
     }
 
