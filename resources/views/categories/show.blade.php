@@ -6,11 +6,12 @@
         <div class="row">
 
             <div class="col-md-3">
-                <p class="lead">Shop Name</p>
+                <p class="lead">{{ $category->title }}</p>
 
                 <div class="categories">
-                    @include('pages.partials.nav.categories')
+                    @include('pages.partials.nav.subCategories', $category->children)
                 </div>
+
             </div>
 
             <div class="col-md-9">

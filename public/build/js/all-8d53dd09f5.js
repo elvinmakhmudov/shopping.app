@@ -36,13 +36,13 @@ d.trigger("activate.bs.scrollspy")},b.prototype.clear=function(){a(this.selector
 
             child = $(this).children(self.subMenu);
 
-            child[self.effect](self.speed);
+            child.stop(true)[self.effect](self.speed);
 
             child[self.triggerOn](function(e) {
                 e.stopPropagation();
             })
 
-            if ($.isFunction(self.done)) {
+            if ( self.done ) {
                 self.done.call(this);
             }
         });
@@ -50,7 +50,7 @@ d.trigger("activate.bs.scrollspy")},b.prototype.clear=function(){a(this.selector
  }
 
  module.init({
-     container: $('.parent'),
+     container: $('.parent'), 
      subMenu: 'ul',
      effect: 'slideToggle',
      speed: 400,
@@ -63,5 +63,19 @@ d.trigger("activate.bs.scrollspy")},b.prototype.clear=function(){a(this.selector
         });
 
  $.material.init();
+
+ $('.parent3').hover(function(e) {
+     e.stopPropagation();
+     $(this).children('.subcategory3').animate({
+        left: "100%"
+    }, 300);
+
+ }, function(e) {
+     e.stopPropagation();
+     $(this).children('.subcategory3').animate({
+        left: "0"
+    }, 100 );      
+ });
+
 })(jQuery)
 //# sourceMappingURL=all.js.map
