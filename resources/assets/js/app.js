@@ -47,16 +47,16 @@
  $.material.init();
 
  $('.parent3').hover(function(e) {
-     e.stopPropagation();
+     // e.stopPropagation();
      $(this).children('.subcategory3').animate({
         left: "100%"
     }, 300);
-
  }, function(e) {
-     e.stopPropagation();
+     // e.stopPropagation();
      $(this).children('.subcategory3').animate({
-        left: "0"
+        left: "0%"
     }, 100 );      
  });
+
 
 })(jQuery)

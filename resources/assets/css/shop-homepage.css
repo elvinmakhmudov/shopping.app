@@ -171,6 +171,7 @@ a img {
     background-color: #fff;
     transition: border 0.3s ease-out;
     box-sizing: border-box;
+    border-right: none;
 }
 
 .categories3:hover {
@@ -187,6 +188,11 @@ a img {
     border: 1px solid #009688;
     background-color: #fff;
     z-index: 2;
+    border-left: none;
+}
+
+.subcategory3 a {
+    border-right: none !important;
 }
 
 .parent3 a {
@@ -195,12 +201,18 @@ a img {
     padding: 10px;
     z-index: 3;
     background-color: #fff;
-    border-bottom: 1px solid #ddd;
     text-decoration: none;
     font-weight: 500;
+    border-right: 1px solid #ddd;
 }
 
+
 .parent3 a:hover {
+    background-color: #009688;
+    color: #fff;
+} 
+
+.parent3 a::after {
     background-color: #009688;
     color: #fff;
 } 
