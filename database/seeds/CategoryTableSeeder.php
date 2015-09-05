@@ -25,7 +25,10 @@ class CategoryTableSeeder extends Seeder
                 'title' => $title,
                 'slug' => str_slug($title),
             ]);
-            $this->setRandomParent($node, $parent_ids, $faker);
+//            $this->setRandomParent($node, $parent_ids, $faker);
+            //use previous id as parent to speed up setting parent process
+            $node->parent_id = (($node->id == 1) || ($node->id % 2 == 1)) ? null : $node->id - 1;
+            $node->save();
         }
     }
 
@@ -43,4 +46,5 @@ class CategoryTableSeeder extends Seeder
         $node->parent_id = ($parent_id == $node->id) ? null : $parent_id;
         $node->save();
     }
+
 }
