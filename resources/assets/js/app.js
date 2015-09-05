@@ -56,53 +56,47 @@
         }
     };
 
-
-        //module.init({
-        //    container: $('.parent'),
-        //    subMenu: 'ul',
-        //    effect: 'slideToggle',
-        //    speed: 400,
-        //    toggleClass: 'active',
-        //    triggerOn: 'click',
-        //    done: function () {
-        //        //toggle caret class
-        //        $(this).find('>a>.caret-right').toggleClass('caret-right-down')
-        //    }
-        //});
-
-
     (function () {
+        //check if it is the first visit
+        var firstVisit = true;
+        //check if the menu is adopted for big screens
         var bigScreenAdopted = false;
         $(window).resize(function () {
+            //for big screens
             if ($(this).width() >= 1280) {
                 if (!bigScreenAdopted) {
-                    $('.parent3').unbind('click');
-                    // call supersize method
+                    $('.parent').unbind('click');
+                }
+                if (firstVisit || !bigScreenAdopted) {
                     hoverModule.init({
-                        container: $('.parent3'),
-                        subMenu: '.subcategory3',
+                        container: $('.parent'),
+                        subMenu: '.subcategory',
                         speed: 300,
                         triggerOn: 'hover'
                     });
                     bigScreenAdopted = true;
+                    firstVisit = false;
                 }
             } else {
+                //for small screens
                 if (bigScreenAdopted) {
-                    $('.parent3').unbind('mouseenter mouseleave');
+                    $('.parent').unbind('mouseenter mouseleave');
+                }
+                if (firstVisit || bigScreenAdopted) {
                     module.init({
-                        container: $('.parent3'),
-                        subMenu: '.subcategory2',
+                        container: $('.parent'),
+                        subMenu: '.subcategory-small',
                         effect: 'slideToggle',
                         speed: 400,
                         toggleClass: 'active',
                         triggerOn: 'click',
                         done: function () {
                             //toggle caret class
-                            console.log(1);
                             $(this).find('>a>.caret-right').toggleClass('caret-right-down')
                         }
                     });
                     bigScreenAdopted = false;
+                    firstVisit = false;
                 }
             }
         });

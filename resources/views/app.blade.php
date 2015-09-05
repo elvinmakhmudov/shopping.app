@@ -2,8 +2,6 @@
 
 @include('partials.nav')
 
-<div class="site">
-    @yield('content')
-</div>
+@yield('content')
 
 @include('partials.footer')

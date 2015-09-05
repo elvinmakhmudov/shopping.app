@@ -2,7 +2,7 @@
 
     @foreach($categories as $category)
         @if(count($category->children) > 0)
-            <div class="parent3">
+            <div class="parent">
                 <a href="{{ route('category.show', $category->slug) }}"> {{ $category->title }} <span class="caret-right"></span></a> 
                 @include('pages.partials.nav.subCategories', $category) 
             </div>

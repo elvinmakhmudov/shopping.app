@@ -1,6 +1,3 @@
-<h4>
-    <a href="{{route('category.show', [$category->slug])}}">{{$category->title}}</a>
-</h4>
 @foreach($category->products as $product)
     @include('pages.partials.product', ['product' => $product])
 @endforeach

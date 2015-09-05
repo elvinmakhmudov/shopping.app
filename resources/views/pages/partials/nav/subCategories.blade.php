@@ -5,10 +5,10 @@
             </li>
 	            @include('pages.partials.nav.subCategories', $category)
         @else
-        	<div class="subcategory2">
+        	<div class="subcategory-small">
 	            <a href="{{ route('category.show', $category->slug) }}"> {{ $category->title }}</a>
 			</div>
-            <div class="subcategory3">
+            <div class="subcategory">
                 <a href="{{ route('category.show', $category->slug) }}"> {{ $category->title }}</a>
             </div>
         @endif

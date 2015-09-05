@@ -1,4 +1,4 @@
-<div class="col-sm-4 col-lg-3 col-md-3">
+<div class="col-sm-4 col-lg-3 col-md-3 product">
     <div class="card">
         <div class="card-image">
             <a
