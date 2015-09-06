@@ -14,7 +14,7 @@ class PagesController extends Controller {
 	 */
 	public function index()
 	{
-        $categories = Category::with('products.reviews')->get();
+        $categories = Category::with('products.reviews', 'products.categories')->get();
 
         //convert them to tree
         $categories = $categories->linkNodes()->toTree();

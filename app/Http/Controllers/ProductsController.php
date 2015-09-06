@@ -13,7 +13,7 @@ class ProductsController extends Controller
 
     public function __construct()
     {
-        $this->middleware('admin', ['except' => ['index', 'show']]);
+        $this->middleware('admin', ['except' => 'show']);
     }
 
     /**
@@ -25,7 +25,6 @@ class ProductsController extends Controller
      */
     public function index($categoryName, $subcategoryId)
     {
-        dd(1);
         $category = Category::findByNameOrFail($categoryName);
 
         $subcategory = $category->subcategories()->find($subcategoryId);
@@ -56,7 +55,6 @@ class ProductsController extends Controller
     public function store($categoryName, $productId)
     {
         //write a logic to save products
-        //
     }
 
     /**

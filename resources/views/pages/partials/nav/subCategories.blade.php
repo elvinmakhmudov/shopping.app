@@ -1,15 +1,10 @@
-	@foreach($category->children as $category)
-        @if(count($category->children) > 0)
-			<li class="parent">
-	            <a href="{{ route('category.show', $category->slug) }}"> {{ $category->title }} <span class="caret-right"></span></a>
-            </li>
-	            @include('pages.partials.nav.subCategories', $category)
-        @else
-        	<div class="subcategory-small">
-	            <a href="{{ route('category.show', $category->slug) }}"> {{ $category->title }}</a>
-			</div>
-            <div class="subcategory">
-                <a href="{{ route('category.show', $category->slug) }}"> {{ $category->title }}</a>
-            </div>
-        @endif
-	@endforeach
+<div class="subcategory-small">
+    @foreach($category->children as $subCategorySmall)
+        <a href="{{ route('category.show', $subCategorySmall->slug) }}"> {{ $subCategorySmall->title }}</a>
+    @endforeach
+</div>
+<div class="subcategory">
+    @foreach($category->children as $subCategory)
+        <a href="{{ route('category.show', $subCategory->slug) }}"> {{ $subCategory->title }}</a>
+    @endforeach
+</div>

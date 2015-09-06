@@ -6,7 +6,7 @@
 
     @include('admin.partials.sidebar')
 
-    <div class="row col-md-7 col-xs-7 col-lg-7">
+    <div class="row col-md-8 col-xs-7 col-lg-8">
         @yield('content')
     </div>
 </div>

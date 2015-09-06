@@ -4,7 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Shop\Models\Category;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
 
 class CategoriesController extends Controller
 {
@@ -21,7 +21,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::all()->linkNodes();
 
         return view('categories.index', compact('categories'));
     }
@@ -33,8 +33,9 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
-        //
+        $categories = Category::all()->linkNodes();
+
+        return view('categories.create', compact('categories'));
     }
 
     /**
@@ -44,7 +45,19 @@ class CategoriesController extends Controller
      */
     public function store()
     {
-        //
+        $title = Request::input('title');
+        $parentId = Request::input('parentId');
+
+        $node = Category::create([
+            'title' => $title,
+            'slug' => str_slug($title),
+        ]);
+
+        //if parent Id is the node itself set parentId to null
+        $node->parent_id = ( $node->id == $parentId ) ? null : $parentId;
+        $node->save();
+
+        return  redirect()->route('category.index');
     }
 
     /**
@@ -55,7 +68,7 @@ class CategoriesController extends Controller
      */
     public function show($slug)
     {
-        $category = Category::where('slug', $slug)->with('products.reviews')->first();
+        $category = Category::where('slug', $slug)->with('products.reviews', 'products.categories')->first();
 
 //        $category = Category::descendantsOf($category->id)->first();
 
@@ -74,7 +87,11 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categories = Category::all()->linkNodes();
+
+        $category = Category::findOrFail($id);
+
+        return view('categories.edit', compact('category', 'categories'));
     }
 
     /**
@@ -85,7 +102,14 @@ class CategoriesController extends Controller
      */
     public function update($id)
     {
-        //
+        $category = Category::findOrFail($id);
+
+        //if 'null' has been passed set the parent Id to null
+        $category->parent_id = ( Request::input('parentId') == "null" ) ? null : Request::input('parentId');
+        $category->title = Request::input('title') ? Request::input('title') : $category->title ;
+        $category->save();
+
+        return  redirect()->route('category.index');
     }
 
     /**
@@ -96,7 +120,11 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::findOrFail($id);
+
+        $category->delete();
+
+        return  redirect()->route('category.index');
     }
 
 }

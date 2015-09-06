@@ -7,7 +7,7 @@ class Category extends Node {
 
     protected $table = 'categories';
 
-    protected $fillable = ['name'];
+    protected $fillable = ['title', 'slug'];
 
     /**
      * Find category by its name
@@ -18,6 +18,21 @@ class Category extends Node {
     public static function findBySlugOrFail($slug)
     {
         if ( $category = static::where('slug', $slug)->first() ) {
+            return $category;
+        }
+
+        throw new ModelNotFoundException;
+    }
+
+    /**
+     * Find category by its Id or fail
+     *
+     * @param $id
+     * @return mixed
+     */
+    public static function findOrFail($id)
+    {
+        if ( $category = static::where('id', $id)->first() ) {
             return $category;
         }
 
