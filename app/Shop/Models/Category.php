@@ -27,6 +27,8 @@ class Category extends Node {
     /**
      * Find category by its Id or fail
      *
+     * TODO: find alternative, without static function so you can typehint this class in controllers
+     *
      * @param $id
      * @return mixed
      */
