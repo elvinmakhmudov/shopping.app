@@ -7,6 +7,8 @@ use App\Shop\Models\Category;
 use App\Shop\Models\Product;
 use App\Shop\Models\Subcategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Input;
 
 class ProductsController extends Controller
 {
@@ -58,12 +60,28 @@ class ProductsController extends Controller
         $description = $this->request->input('description');
         $rating = $this->request->input('rating');
         $price = $this->request->input('price');
+        $thumbnailName = null;
+
+        if ($this->request->hasFile('thumbnail')) {
+            $thumbnail = $this->request->file('thumbnail');
+            $path = public_path() . '/images/' . $category->slug;
+
+            if (!File::exists($path)) {
+                File::makeDirectory($path, 0755, true);
+            }
+
+            $thumbnailName = time() . '-' . $thumbnail->getClientOriginalName();
+
+            $thumbnail->move($path, $thumbnailName);
+        }
+
 
         $product = Product::create([
             'name' => $name,
             'description' => $description,
             'rating' => $rating,
-            'price' => $price
+            'price' => $price,
+            'thumbnail' => $thumbnailName
         ]);
 
         $category->products()->save($product);
@@ -118,18 +136,34 @@ class ProductsController extends Controller
     {
         $category = Category::findOrFail($categoryId);
 
-        $product = $category->products()->findOrFail($productId);
+        $product = Product::findOrFail($productId);
+
+        $thumbnailName = $product->thumbnail;
+
+        if ($this->request->hasFile('thumbnail')) {
+            $thumbnail = $this->request->file('thumbnail');
+            $path = public_path() . '/images/' . $category->slug;
+
+            if (!File::exists($path)) {
+                File::makeDirectory($path, 0755, true);
+            }
+
+            $thumbnailName = time() . '-' . $thumbnail->getClientOriginalName();
+
+            $thumbnail->move($path, $thumbnailName);
+        }
+
 
         $product->fill([
             'name' => $this->request->input('name'),
             'description' => $this->request->input('description'),
             'price' => $this->request->input('price'),
-            'rating' => $this->request->input('rating')
+            'rating' => $this->request->input('rating'),
+            'thumbnail' => $thumbnailName
         ])->save();
 
         //if new category id exists change old category to the new one
-        if(Category::findOrFail($this->request->input('newCategoryId')))
-        {
+        if (Category::findOrFail($this->request->input('newCategoryId'))) {
             //delete old category
             $product->categories()->detach($category->id);
             //add new one
@@ -150,11 +184,11 @@ class ProductsController extends Controller
     {
         $category = Category::findOrFail($categoryId);
 
-        $product = $category->products()->findOrFail($productId);
+        $product = $category->products()->find($productId);
 
         $product->delete();
 
-        return  redirect()->route('category.products.index', $category->id);
+        return redirect()->route('category.products.index', $category->id);
     }
 
 }

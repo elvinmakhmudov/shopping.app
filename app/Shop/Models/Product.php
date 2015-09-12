@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model {
 
     protected $table = 'products';
-    protected $fillable = ['name', 'description', 'rating', 'price'];
+    protected $fillable = ['name', 'description', 'rating', 'price', 'thumbnail'];
 
     /**
      * A product has many reviews
@@ -23,5 +23,15 @@ class Product extends Model {
     public function categories()
     {
         return $this->belongsToMany('App\Shop\Models\Category', 'product_category');
+    }
+
+    /**
+     * A product has many images
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function images()
+    {
+        return $this->hasMany('App\Shop\Models\Image');
     }
 }

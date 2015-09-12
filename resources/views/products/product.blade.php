@@ -1,6 +1,6 @@
 <div class="col-lg-5">
     <div class="thumbnail">
-        <img src="http://placehold.it/150x100" class="img" alt="">
+        <img src="{{ asset('images/'.$product->categories->first()->slug.'/'.$product->thumbnail) }}" alt="">
     </div>
     <ul class="list-inline row center-block">
         <li><a href=""><img src="http://placehold.it/100x100" class="img center-block" alt=""></a></li>

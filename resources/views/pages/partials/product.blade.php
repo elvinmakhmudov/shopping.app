@@ -3,7 +3,7 @@
         <div class="card-image">
             <a
                href="{{route('category.products.show', [$product->categories->first()->slug, $product->id])}}">
-                <img src="http://placehold.it/150x100" alt="">
+                <img src="{{ asset('images/'.$product->categories->first()->slug.'/'.$product->thumbnail) }}" alt="">
             </a>
             <a class="card-title"
                href="{{route('category.products.show', [$product->categories->first()->slug, $product->id])}}">{{ $product->name }}</a>

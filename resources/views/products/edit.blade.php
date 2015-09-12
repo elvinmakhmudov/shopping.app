@@ -5,7 +5,7 @@
 
         <form class="form-horizontal"
               action="{{ route('category.products.update', [ 'categoryId' => $category->id, 'productId' => $product->id ]) }}"
-              method="post">
+              method="post" enctype="multipart/form-data">
             <input type="hidden" name="_method" value="PUT">
             <fieldset>
                 <legend>Edit a product</legend>
@@ -22,7 +22,7 @@
 
                     <div class="col-lg-10">
                         <textarea class="form-control" rows="3" id="inputDescription"
-                                  name="description" value="{{ $product->description }}"></textarea>
+                                  name="description" >{{ $product->description }}</textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -55,6 +55,13 @@
                                 @endif
                             @endforeach
                         </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="productThumbnail" class="col-lg-2 control-label">Thumbnail</label>
+
+                    <div class="col-lg-10">
+                        <input type="file" class="form-control" name="thumbnail" id="productThumbnail"/>
                     </div>
                 </div>
                 <div class="form-group">
