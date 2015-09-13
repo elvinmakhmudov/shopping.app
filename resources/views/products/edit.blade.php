@@ -4,7 +4,7 @@
     <div class="container">
 
         <form class="form-horizontal"
-              action="{{ route('category.products.update', [ 'categoryId' => $category->id, 'productId' => $product->id ]) }}"
+              action="{{ route('category.products.update', [ $category->id, $product->id ]) }}"
               method="post" enctype="multipart/form-data">
             <input type="hidden" name="_method" value="PUT">
             <fieldset>

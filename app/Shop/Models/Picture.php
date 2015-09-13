@@ -2,10 +2,10 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Image extends Model
+class Picture extends Model
 {
-    protected $table = 'images';
-    protected $fillable = ['name'];
+    protected $table = 'pictures';
+    protected $fillable = ['filename'];
 
     /**
      * Images belong to a product

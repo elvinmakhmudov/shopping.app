@@ -30,8 +30,8 @@ class Product extends Model {
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function images()
+    public function pictures()
     {
-        return $this->hasMany('App\Shop\Models\Image');
+        return $this->hasMany('App\Shop\Models\Picture');
     }
 }

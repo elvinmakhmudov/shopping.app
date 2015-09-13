@@ -16,7 +16,8 @@
                     <th>updated_at</th>
                     <th>deleted_at</th>
                     <th>Reviews</th>
-                    <th>edit</th>
+                    <th>Pictures</th>
+                    <th>Edit</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -32,6 +33,7 @@
                         <td>{{ $product->updated_at }}</td>
                         <td>{{ $product->deleted_at }}</td>
                         <td><a href="{{ route('category.products.index', $product->id) }}">Reviews</a></td>
+                        <td><a href="{{ route('category.products.pictures.index', [$category->id, $product->id]) }}">Pictures</a></td>
                         <td><a href="{{ route('category.products.edit', [$category->id, $product->id]) }}">Edit</a></td>
                     </tr>
 
