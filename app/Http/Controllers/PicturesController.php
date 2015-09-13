@@ -31,7 +31,7 @@ class PicturesController extends Controller
     {
         $category = Category::findOrFail($categoryId);
 
-        $product = $category->products()->where('product_id', $productId)->first();
+        $product = $category->products()->find($productId);
 
         $pictures = $product->pictures;
 
@@ -49,7 +49,7 @@ class PicturesController extends Controller
     {
         $category = Category::with('products')->findOrFail($categoryId);
 
-        $product = $category->products()->where('product_id', $productId)->first();
+        $product = $category->products()->find($productId);
 
         return view('pictures.create', compact('category', 'product'));
     }
@@ -67,7 +67,7 @@ class PicturesController extends Controller
 
         $productId = $this->request->input('newProductId') ?: $productId;
 
-        $product = $category->products()->where('product_id', $productId)->firstOrFail();
+        $product = $category->products()->find($productId);
 
         //TODO:when making a validation, make sure 'picture' has been passed, if it is not, redirect back
         if ($this->request->hasFile('picture')) {
@@ -120,9 +120,9 @@ class PicturesController extends Controller
     {
         $category = Category::findOrFail($categoryId);
 
-        $product = $category->products()->where('product_id', $productId)->first();
+        $product = $category->products()->find($productId);
 
-        $picture = $product->pictures()->where('product_id', $productId)->first();
+        $picture = $product->pictures()->find($id);
 
         return view('pictures.edit', compact('category', 'product', 'picture'));
     }
@@ -141,7 +141,7 @@ class PicturesController extends Controller
 
         $productId = $this->request->input('newProductId') ?: $productId;
 
-        $product = $category->products()->where('product_id', $productId)->firstOrFail();
+        $product = $category->products()->find($productId);
 
         $pictureModel = $product->pictures()->where('id', $id)->firstOrFail();
 

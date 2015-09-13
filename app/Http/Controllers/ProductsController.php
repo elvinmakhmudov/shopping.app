@@ -102,8 +102,10 @@ class ProductsController extends Controller
 
         $product = $category->products()->find($productId);
 
+        $pictures = $product->pictures;
+
         //write a logic to show a specific product
-        return view('products.show', compact('category', 'product'));
+        return view('products.show', compact('category', 'product', 'pictures'));
     }
 
     /**

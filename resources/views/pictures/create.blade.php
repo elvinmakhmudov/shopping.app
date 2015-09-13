@@ -15,7 +15,12 @@
                         <select class="form-control" name="newProductId" id="selectParent">
                             @if($category->products)
                                 @foreach($category->products as $possibleProduct)
-                                    <option value="{{ $possibleProduct->id }}">{{ $possibleProduct->name }}</option>
+                                    @if($possibleProduct->id == $product->id)
+                                        <option value="{{ $possibleProduct->id }}"
+                                                selected>{{ $possibleProduct->name }}</option>
+                                    @else
+                                        <option value="{{ $possibleProduct->id }}">{{ $possibleProduct->name }}</option>
+                                    @endif
                                 @endforeach
                             @endif
                         </select>

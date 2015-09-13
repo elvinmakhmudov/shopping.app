@@ -1,13 +1,16 @@
 <div class="col-lg-5">
     <div class="thumbnail">
-        <img src="{{ asset('images/'.$product->categories->first()->slug.'/'.$product->thumbnail) }}" alt="">
+        <img src="{{ asset('images/'.$category->slug.'/'.$product->thumbnail) }}" alt="">
     </div>
-    <ul class="list-inline row center-block">
-        <li><a href=""><img src="http://placehold.it/100x100" class="img center-block" alt=""></a></li>
-        <li><a href=""><img src="http://placehold.it/100x100" class="img center-block" alt=""></a></li>
-        <li><a href=""><img src="http://placehold.it/100x100" class="img center-block" alt=""></a></li>
-        <li><a href=""><img src="http://placehold.it/100x100" class="img center-block" alt=""></a></li>
-    </ul>
+    @if($pictures)
+        <ul class="list-inline row center-block">
+            @foreach($pictures as $picture)
+                <li>
+                    <img src="{{ asset('images/'.$category->slug.'/'.$product->id.'/'.$picture->filename) }}">
+                </li>
+            @endforeach
+        </ul>
+    @endif
 </div>
 
 <div class="col-md-6 col-lg-6">
