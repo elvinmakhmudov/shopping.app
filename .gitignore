@@ -3,3 +3,5 @@
 /.idea
 .env
 /.git
+#don't show local pictures
+/public/images
