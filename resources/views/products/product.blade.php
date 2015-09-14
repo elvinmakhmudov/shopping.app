@@ -3,13 +3,12 @@
         <img src="{{ asset('images/'.$category->slug.'/'.$product->thumbnail) }}" alt="">
     </div>
     @if($pictures)
-        <ul class="list-inline row center-block">
+        <div class="list-inline row center-block">
             @foreach($pictures as $picture)
-                <li>
-                    <img src="{{ asset('images/'.$category->slug.'/'.$product->id.'/'.$picture->filename) }}">
-                </li>
+                <img src="{{ asset('images/'.$category->slug.'/'.$product->id.'/'.$picture->filename) }}"
+                     class="img">
             @endforeach
-        </ul>
+        </div>
     @endif
 </div>
 

@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-    <div class="container">
+    <div class="col-lg-12">
         <form class="form-horizontal" action="{{ route('category.products.store', $category->id) }}" method="post"
               enctype="multipart/form-data">
             <fieldset>

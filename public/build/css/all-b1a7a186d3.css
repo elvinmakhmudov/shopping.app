@@ -152,8 +152,11 @@ footer {
     /*width: 100%;*/
 /*}*/
 
-a img {
-    display: block;
+img {
+    position: relative;
+    float: left;
+    width: 20%;
+    margin: 10px;
 }
 
 .categories {
@@ -218,6 +221,9 @@ a img {
 .site {
     padding-top: 20px;
     background-color: #fff;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 10px;
 }
 
 .subcategory-small {
@@ -226,6 +232,14 @@ a img {
 
 .product {
     margin-bottom: 10px;
+}
+
+.navbar {
+    margin-bottom: 0;
+}
+
+.navbar-right {
+    margin-right: 0 !important;
 }
 
 /*# sourceMappingURL=all.css.map */

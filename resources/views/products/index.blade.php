@@ -2,8 +2,7 @@
 
 @section('content')
 
-    <div class="container">
-        <div class="col-lg-10 col-md-10">
+        <div class="col-lg-12">
             <table class="table table-striped table-hover ">
                 <thead>
                 <tr>
@@ -44,5 +43,4 @@
 
             <a href="{{ route('category.products.create', $category->id) }}" class="btn btn-primary btn-raised">Add a product</a>
         </div>
-    </div>
 @endsection

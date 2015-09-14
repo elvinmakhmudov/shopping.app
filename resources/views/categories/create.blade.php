@@ -1,4 +1,4 @@
-@extends('admin.layouts.main')
+@extends('app')
 
 @section('content')
     <form class="form-horizontal" action="{{ route('category.store') }}" method="post">

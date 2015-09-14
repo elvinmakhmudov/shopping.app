@@ -2,7 +2,7 @@
 
 @include('partials.nav')
 
-<div class="row col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
+<div class="col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
 
     @include('admin.partials.sidebar')
 
