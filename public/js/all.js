@@ -66,6 +66,7 @@ d.trigger("activate.bs.scrollspy")},b.prototype.clear=function(){a(this.selector
                     opacity: 1
                 }, self.speed);
             }, function (e) {
+                e.preventDefault();
                 $(this).children(self.subMenu).stop(true).animate({
                     left: "0%",
                     opacity: 0
@@ -84,6 +85,9 @@ d.trigger("activate.bs.scrollspy")},b.prototype.clear=function(){a(this.selector
             if ($(this).width() >= 1280) {
                 if (!bigScreenAdopted) {
                     $('.parent').unbind('click');
+                    $('.parent>a').click(function(e) {
+                        e.preventDefault();
+                    });
                 }
                 if (firstVisit || !bigScreenAdopted) {
                     hoverModule.init({
@@ -118,12 +122,12 @@ d.trigger("activate.bs.scrollspy")},b.prototype.clear=function(){a(this.selector
                 }
             }
         });
-    }());
+}());
 
 
-    $(window).resize();
+$(window).resize();
 
-    $.material.init();
+$.material.init();
 
 })(jQuery);
 //# sourceMappingURL=all.js.map
