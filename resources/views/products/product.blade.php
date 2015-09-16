@@ -3,10 +3,9 @@
         <img src="{{ asset('images/'.$category->slug.'/'.$product->thumbnail) }}" alt="">
     </div>
     @if($pictures)
-        <div class="list-inline row center-block">
+        <div class="list-inline row center-block subImages">
             @foreach($pictures as $picture)
-                <img src="{{ asset('images/'.$category->slug.'/'.$product->id.'/'.$picture->filename) }}"
-                     class="img">
+                <img src="{{ asset('images/'.$category->slug.'/'.$product->id.'/'.$picture->filename) }}" >
             @endforeach
         </div>
     @endif

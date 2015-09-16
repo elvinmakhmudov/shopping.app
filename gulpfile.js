@@ -17,6 +17,8 @@ elixir(function(mix) {
         'material/roboto.min.css',
         'material/material.min.css',
         'material/ripples.min.css',
+        'addons/slick/slick.css',
+        'addons/slick/slick-theme.css',
         'shop-homepage.css'
     ]);
 
@@ -25,6 +27,7 @@ elixir(function(mix) {
         'bootstrap.min.js',
         'material/ripples.min.js',
         'material/material.min.js',
+        'addons/slick/slick.js',
         'app.js'
     ]);
     mix.version(['css/all.css', 'js/all.js']);

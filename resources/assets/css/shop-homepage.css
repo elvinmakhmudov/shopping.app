@@ -144,8 +144,11 @@ footer {
 img {
     position: relative;
     float: left;
-    width: 20%;
     margin: 10px;
+}
+
+.subImages img {
+    width: 20%;
 }
 
 .categories {
