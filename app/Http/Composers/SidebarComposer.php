@@ -14,7 +14,7 @@ class SidebarComposer
 
     public function getCategories()
     {
-        $categories = Category::with('products')->get();
+        $categories = Category::exceptMain()->get();
 
         //convert them to tree
         return $categories->linkNodes()->toTree();

@@ -79,8 +79,25 @@ class Category extends Node
         return $this->hasManyThrough('App\Shop\Models\Review', 'App\Shop\Models\Product');
     }
 
+    /**
+     * get only main page
+     *
+     * @param $query
+     * @return mixed
+     */
     public function scopeMainPage($query)
     {
         return $query->withTrashed()->where('slug', $this->mainPageSlug);
+    }
+
+    /**
+     * Get all categories except main
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeExceptMain($query)
+    {
+        return $query->where('is_main', 0);
     }
 }

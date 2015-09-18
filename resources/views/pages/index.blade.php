@@ -4,7 +4,7 @@
     <!-- Page Content -->
     <div class="col-md-3">
         <div class="categories">
-            @include('pages.partials.nav.categories', $categories)
+            @include('pages.partials.nav.categories')
         </div>
     </div>
 
