@@ -18,18 +18,27 @@ class CategoryTableSeeder extends Seeder
         $faker->addProvider(new Faker\Provider\Lorem($faker));
         $howMany = 10;
 
+        //add a category for the main page
+        $main = Category::create([
+            'title' => 'Main page',
+            'slug' => str_slug('main_page'),
+            'is_main' => 1
+        ]);
+
         $parent_ids = [];
         for ($i = 0; $i < $howMany; $i++) {
             $title = $faker->sentence(2);
             $node = Category::create([
                 'title' => $title,
                 'slug' => str_slug($title),
+                'is_main' => 0
             ]);
 //            $this->setRandomParent($node, $parent_ids, $faker);
             //use previous id as parent to speed up setting parent process
-            $node->parent_id = (($node->id == 1) || ($node->id % 2 == 1)) ? null : $node->id - 1;
+            $node->parent_id = (($node->id == 2) || ($node->id % 2 == 0)) ? null : $node->id - 1;
             $node->save();
         }
+
     }
 
     /**

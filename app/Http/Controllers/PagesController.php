@@ -19,7 +19,10 @@ class PagesController extends Controller {
         //convert them to tree
         $categories = $categories->linkNodes()->toTree();
 
-        return view('pages/index', compact('categories'));
+        $mainPageCategory = Category::with('products.reviews', 'products.categories')->mainPage()->first();
+//        dd($mainPageCategory->products()->first()->categories);
+
+        return view('pages/index', compact('categories', 'mainPageCategory'));
 	}
 
 	/**

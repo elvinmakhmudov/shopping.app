@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Shop\Models\Category;
 use App\Shop\Models\Product;
 use App\Shop\Models\Subcategory;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
@@ -27,8 +28,8 @@ class ProductsController extends Controller
      */
     public function index($id)
     {
-        $category = Category::findOrFail($id);
-        $products = $category->products()->get();
+        $category = Category::withTrashed()->findOrFail($id);
+        $products = $category->products()->withTrashed()->get();
 
         return view('products.index', compact('products', 'category'));
     }

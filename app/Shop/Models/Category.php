@@ -1,13 +1,20 @@
 <?php namespace App\Shop\Models;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Kalnoy\Nestedset\Node;
 
-class Category extends Node {
+class Category extends Node
+{
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
 
     protected $table = 'categories';
 
-    protected $fillable = ['title', 'slug'];
+    protected $fillable = ['title', 'slug', 'is_main'];
+
+    protected $mainPageSlug = 'main-page';
 
     /**
      * Find category by its name
@@ -17,7 +24,7 @@ class Category extends Node {
      */
     public static function findBySlugOrFail($slug)
     {
-        if ( $category = static::where('slug', $slug)->first() ) {
+        if ($category = static::where('slug', $slug)->first()) {
             return $category;
         }
 
@@ -34,7 +41,7 @@ class Category extends Node {
      */
     public static function findOrFail($id)
     {
-        if ( $category = static::where('id', $id)->first() ) {
+        if ($category = static::where('id', $id)->first()) {
             return $category;
         }
 
@@ -70,5 +77,10 @@ class Category extends Node {
     public function reviews()
     {
         return $this->hasManyThrough('App\Shop\Models\Review', 'App\Shop\Models\Product');
+    }
+
+    public function scopeMainPage($query)
+    {
+        return $query->withTrashed()->where('slug', $this->mainPageSlug);
     }
 }

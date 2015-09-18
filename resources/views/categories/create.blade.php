@@ -16,6 +16,7 @@
 
                 <div class="col-lg-10">
                     <select class="form-control" name="parentId" id="selectParent">
+                        <option value="null" selected>null</option>
                         @foreach($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->title }}</option>
                         @endforeach

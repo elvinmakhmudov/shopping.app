@@ -19,6 +19,7 @@ class CreateCategoriesTable extends Migration {
             $table->increments('id');
             $table->string('title');
             $table->string('slug')->unique();
+            $table->boolean('is_main')->default(0);
             $table->timestamps();
             $table->softDeletes();
             NestedSet::columns($table);

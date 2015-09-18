@@ -21,7 +21,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Category::all()->linkNodes();
+        $categories = Category::withTrashed()->get()->linkNodes();
 
         return view('categories.index', compact('categories'));
     }
@@ -46,7 +46,7 @@ class CategoriesController extends Controller
     public function store()
     {
         $title = Request::input('title');
-        $parentId = Request::input('parentId');
+        $parentId = Request::input('parentId') == "null" ? null : Request::input('parentId');
 
         $node = Category::create([
             'title' => $title,
@@ -54,10 +54,10 @@ class CategoriesController extends Controller
         ]);
 
         //if parent Id is the node itself set parentId to null
-        $node->parent_id = ( $node->id == $parentId ) ? null : $parentId;
+        $node->parent_id = ($node->id == $parentId) ? null : $parentId;
         $node->save();
 
-        return  redirect()->route('category.index');
+        return redirect()->route('category.index');
     }
 
     /**
@@ -105,11 +105,11 @@ class CategoriesController extends Controller
         $category = Category::findOrFail($id);
 
         //if 'null' has been passed set the parent Id to null
-        $category->parent_id = ( Request::input('parentId') == "null" ) ? null : Request::input('parentId');
-        $category->title = Request::input('title') ? Request::input('title') : $category->title ;
+        $category->parent_id = (Request::input('parentId') == "null") ? null : Request::input('parentId');
+        $category->title = Request::input('title') ? Request::input('title') : $category->title;
         $category->save();
 
-        return  redirect()->route('category.index');
+        return redirect()->route('category.index');
     }
 
     /**
@@ -124,7 +124,7 @@ class CategoriesController extends Controller
 
         $category->delete();
 
-        return  redirect()->route('category.index');
+        return redirect()->route('category.index');
     }
 
 }

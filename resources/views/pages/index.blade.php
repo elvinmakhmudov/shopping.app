@@ -12,6 +12,7 @@
         @include('pages.partials.slider')
     </div>
 
-    @include('pages.partials.categories.categories', $categories)
+{{--    @include('pages.partials.categories.categories', $categories)--}}
+    @include('pages.partials.categories.category', ['category' => $mainPageCategory])
     <!-- /.container -->
 @endsection

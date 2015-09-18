@@ -31,9 +31,9 @@ class PicturesController extends Controller
     {
         $category = Category::findOrFail($categoryId);
 
-        $product = $category->products()->find($productId);
+        $product = $category->products()->findOrFail($productId);
 
-        $pictures = $product->pictures;
+        $pictures = $product->pictures()->withTrashed()->get();
 
         return view('pictures.index', compact('category', 'product', 'pictures'));
     }
@@ -183,9 +183,9 @@ class PicturesController extends Controller
     {
         $category = Category::findOrFail($categoryId);
 
-        $product = $category->products()->find($productId);
+        $product = $category->products()->findOrFail($productId);
 
-        $picture = $product->pictures()->find($id);
+        $picture = $product->pictures()->findOrFail($id);
 
         $picture->delete();
 
