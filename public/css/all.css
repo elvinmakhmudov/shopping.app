@@ -560,5 +560,11 @@ footer {
     margin-right: 0 !important;
 }
 
+.page-title {
+    font-weight: bold;
+    font-size: 21px;
+    margin: 0;
+    padding: 0 0 10px 14px;
+}
 
 /*# sourceMappingURL=all.css.map */

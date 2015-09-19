@@ -11,7 +11,6 @@
             <h4>
             <a class="card-title"
                href="{{route('category.products.show', [$product->categories->first()->slug, $product->id])}}">{{ $product->name }}</a>
-                {{--                <a href="{{route('category.products.show', [$product->categories->first()->slug, $product->id])}}">{{ $product->name }}</a>--}}
             </h4>
         </div>
         <div class="ratings">

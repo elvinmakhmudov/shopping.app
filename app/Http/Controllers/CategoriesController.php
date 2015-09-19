@@ -70,12 +70,6 @@ class CategoriesController extends Controller
     {
         $category = Category::where('slug', $slug)->with('products.reviews', 'products.categories')->first();
 
-//        $category = Category::descendantsOf($category->id)->first();
-
-//        $category = $category->descendants()->with('products.reviews')->first();
-
-//        dd($category->slug);
-
         return view('categories.show', compact('category'));
     }
 

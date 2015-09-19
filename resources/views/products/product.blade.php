@@ -1,4 +1,4 @@
-<div class="col-lg-5">
+<div class="col-lg-5 col-md-5">
     <div class="thumbnail center-block">
         <img src="{{ asset('images/'.$category->slug.'/'.$product->thumbnail) }}" alt="">
     </div>
@@ -13,7 +13,7 @@
     @endif
 </div>
 
-<div class="col-md-6 col-lg-6">
+<div class="col-md-7 col-lg-7">
     <ol class="breadcrumb">
         <li><a href="{{route('category.show', $category->slug)}}">{{ $category->title }}</a></li>
         <li class="active">{{ $category->title}}</li>
