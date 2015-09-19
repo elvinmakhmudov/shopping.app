@@ -1,13 +1,15 @@
 <div class="col-lg-5">
-    <div class="thumbnail">
+    <div class="thumbnail center-block">
         <img src="{{ asset('images/'.$category->slug.'/'.$product->thumbnail) }}" alt="">
     </div>
     @if($pictures)
-        <div class="list-inline row center-block subImages">
-            @foreach($pictures as $picture)
+    <div class="list-inline row center-block subImages">
+        @foreach($pictures as $picture)
+            <div class="subImage">
                 <img src="{{ asset('images/'.$category->slug.'/'.$product->id.'/'.$picture->filename) }}" >
-            @endforeach
-        </div>
+            </div>
+        @endforeach
+    </div>
     @endif
 </div>
 
@@ -23,7 +25,7 @@
     <div class="ratings">
         <h2>$24.99</h2>
         @for($i = 0; $i < floor($product->rating); $i++)
-            <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
         @endfor
         {{ $product->reviews->count() }} reviews
     </div>

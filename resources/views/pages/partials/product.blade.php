@@ -1,16 +1,16 @@
 <div class="col-sm-4 col-lg-3 col-md-3 product">
-    <div class="card">
-        <div class="card-image">
+    <div class="card2">
+        <div class="card-image2">
             <a
                href="{{route('category.products.show', [$product->categories->first()->slug, $product->id])}}">
                 <img src="{{ asset('images/'.$product->categories->first()->slug.'/'.$product->thumbnail) }}" alt="">
             </a>
-            <a class="card-title"
-               href="{{route('category.products.show', [$product->categories->first()->slug, $product->id])}}">{{ $product->name }}</a>
         </div>
 
         <div class="caption">
             <h4>
+            <a class="card-title"
+               href="{{route('category.products.show', [$product->categories->first()->slug, $product->id])}}">{{ $product->name }}</a>
                 {{--                <a href="{{route('category.products.show', [$product->categories->first()->slug, $product->id])}}">{{ $product->name }}</a>--}}
             </h4>
         </div>

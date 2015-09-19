@@ -2,10 +2,6 @@
 
 @section('content')
 
-    <div class="container">
-        <div class="row">
-            @include('products.product', ['category' => $category, 'product' => $product])
-        </div>
-    </div>
+@include('products.product', ['category' => $category, 'product' => $product])
 
 @endsection
