@@ -152,8 +152,8 @@ footer {
 }
 
 .categories:hover {
-    border: 1px solid #009688;
-    border-right: none;
+    /*border: 1px solid #009688;*/
+    /*border-right: none;*/
 }
 
 .subcategory {
@@ -163,7 +163,6 @@ footer {
     left: 0;
     top: 0;
     height: 100%;
-    border: 1px solid #009688;
     background-color: #fff;
     z-index: 2;
     border-left: none;
@@ -232,9 +231,6 @@ footer {
 
 .slick-dots {
     bottom: 0;
-}
-
-.slider {
 }
 
 .slider img {

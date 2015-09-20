@@ -2,13 +2,13 @@
 
 @section('content')
 
-    <div class="container">
-        <table class="table table-striped table-hover table-responsive" style="width: 70%">
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
             <thead>
             <tr>
                 <th>Id</th>
                 <th>name</th>
-                <th>description</th>
+                <th style="width: 265px;">description</th>
                 <th>rating</th>
                 <th>price</th>
                 <th>created_at</th>
@@ -32,7 +32,8 @@
                     <td>{{ $product->updated_at }}</td>
                     <td>{{ $product->deleted_at }}</td>
                     <td><a href="{{ route('category.products.index', $product->id) }}">Reviews</a></td>
-                    <td><a href="{{ route('category.products.pictures.index', [$category->id, $product->id]) }}">Pictures</a>
+                    <td>
+                        <a href="{{ route('category.products.pictures.index', [$category->id, $product->id]) }}">Pictures</a>
                     </td>
                     <td><a href="{{ route('category.products.edit', [$category->id, $product->id]) }}">Edit</a></td>
                 </tr>
@@ -41,8 +42,8 @@
 
             </tbody>
         </table>
-
-        <a href="{{ route('category.products.create', $category->id) }}" class="btn btn-primary btn-raised">Add a
-            product</a>
     </div>
+
+    <a href="{{ route('category.products.create', $category->id) }}" class="btn btn-primary btn-raised">Add a
+        product</a>
 @endsection
