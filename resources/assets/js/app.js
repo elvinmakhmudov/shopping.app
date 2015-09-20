@@ -112,11 +112,12 @@ $(window).resize();
 $.material.init();
 
 $('.slider').slick({
+    dots: true,
+    arrows: false,
     infinite: true,
     autoplay: true,
     slidesToScroll: 1,
     autoplaySpeed: 2000,
-    adaptiveHeight: true
 });
 
 })(jQuery);

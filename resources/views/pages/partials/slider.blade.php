@@ -1,12 +1,11 @@
-<div class="row">
-    <div class="col-md-12">
-        <div class="slider">
-            <div>
-                <img  src="http://placehold.it/800x400" alt="">
-            </div>
-            <div>
-                <img src="http://placehold.it/800x400" alt="">
-            </div>
-        </div>
-    </div>
-</div>
+	<div class="slider">
+		<div>
+			<a href="#"><img src="http://placehold.it/810x320" alt=""></a>
+		</div>
+		<div>
+			<a href="#"><img src="http://placehold.it/810x320" alt=""></a>
+		</div>
+		<div>
+			<a href="#"><img src="{{ asset('images/42.jpg') }}" alt=""></a>
+		</div>
+	</div>
