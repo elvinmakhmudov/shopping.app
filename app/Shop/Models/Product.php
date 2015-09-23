@@ -38,4 +38,14 @@ class Product extends Model {
     {
         return $this->hasMany('App\Shop\Models\Picture');
     }
+
+    /**
+     * A product has many orders
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders()
+    {
+        return $this->hasMany('App\Shop\Models\Order');
+    }
 }

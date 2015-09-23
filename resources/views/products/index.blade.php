@@ -8,7 +8,6 @@
             <tr>
                 <th>Id</th>
                 <th>name</th>
-                <th style="width: 265px;">description</th>
                 <th>rating</th>
                 <th>price</th>
                 <th>created_at</th>
@@ -25,7 +24,6 @@
                 <tr>
                     <td>{{ $product->id }}</td>
                     <td>{{ $product->name }}</td>
-                    <td>{{ $product->description }}</td>
                     <td>{{ $product->rating }}</td>
                     <td>{{ $product->price }}</td>
                     <td>{{ $product->created_at }}</td>

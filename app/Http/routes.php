@@ -26,6 +26,9 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
+Route::resource('users', 'UsersController');
+
+
 Route::resource('category', 'CategoriesController');
 Route::resource('category.products', 'ProductsController');
 Route::resource('category.products.pictures', 'PicturesController');

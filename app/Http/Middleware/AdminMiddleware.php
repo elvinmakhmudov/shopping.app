@@ -31,7 +31,6 @@ class AdminMiddleware {
 	 */
 	public function handle($request, Closure $next)
 	{
-        $response = $next($request);
 
         if ( ! ( $this->auth->check() && $this->auth->user()->is_admin ) )
         {
@@ -45,7 +44,7 @@ class AdminMiddleware {
             }
         }
 
-        return $response;
+        return $next($request);
 	}
 
 }
