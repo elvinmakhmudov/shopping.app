@@ -1,5 +1,6 @@
 @extends('app')
 
+
 @section('content')
     <div class="col-lg-12">
         <table class="table table-striped table-hover ">

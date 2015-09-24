@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Shop\Models\User;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -20,8 +21,9 @@ class UsersController extends Controller
      */
     public function index()
     {
-        dd(2);
-        //
+        $users = User::all();
+
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -31,17 +33,32 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
+     * @param Request $request
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        //
+        $name = $request->input('name');
+        $lastName = $request->input('lastName');
+        $email = $request->input('email');
+        $password = $request->input('password');
+        $isAdmin = $request->has('isAdmin') ?: null;
+
+        User::create([
+            'name' => $name,
+            'last_name' => $lastName,
+            'email' => $email,
+            'password' => bcrypt($password),
+            'is_admin' => $isAdmin
+        ]);
+
+        return redirect()->route('users.index');
     }
 
     /**
