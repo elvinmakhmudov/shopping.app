@@ -65,7 +65,7 @@ class ProductsController extends Controller
 
         if ($this->request->hasFile('thumbnail')) {
             $thumbnail = $this->request->file('thumbnail');
-            $path = public_path() . '/images/' . $category->slug;
+            $path = public_path() . '/content/images/' . $category->slug;
 
             if (!File::exists($path)) {
                 File::makeDirectory($path, 0755, true);
@@ -145,7 +145,7 @@ class ProductsController extends Controller
 
         if ($this->request->hasFile('thumbnail')) {
             $thumbnail = $this->request->file('thumbnail');
-            $path = public_path() . '/images/' . $category->slug;
+            $path = public_path() . '/content/images/' . $category->slug;
 
             if (!File::exists($path)) {
                 File::makeDirectory($path, 0755, true);

@@ -4,4 +4,5 @@
 .env
 /.git
 #don't show local pictures
-/public/images
+/public/content/images
+/public/content/profile_pictures

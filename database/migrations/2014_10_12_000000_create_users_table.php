@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration {
             $table->string('last_name', 50);
 			$table->string('email')->unique();
 			$table->string('password', 60);
+            $table->string('thumbnail')->nullable()->default(null);
             $table->boolean('is_admin')->default(false);
 			$table->rememberToken();
 			$table->timestamps();
@@ -35,6 +36,10 @@ class CreateUsersTable extends Migration {
 	public function down()
 	{
 		Schema::drop('users');
+
+        //delete everything inside the profile pictures directory
+        $path = public_path().'/content/profile_pictures/';
+        File::deleteDirectory($path, true);
 	}
 
 }

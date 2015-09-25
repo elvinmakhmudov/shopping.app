@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\File;
 
 class CreatePicturesTable extends Migration {
 
@@ -30,6 +31,10 @@ class CreatePicturesTable extends Migration {
 	public function down()
 	{
 		Schema::drop('pictures');
+
+        //delete everything inside the images directory
+        $path = public_path().'/content/images/';
+        File::deleteDirectory($path, true);
 	}
 
 }

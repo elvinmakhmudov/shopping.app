@@ -1,7 +1,8 @@
 @extends('app')
 
 @section('content')
-    <form class="form-horizontal" action="{{ route('users.store') }}" method="post">
+    @include('partials.error')
+    <form class="form-horizontal" action="{{ route('users.store') }}" method="post" enctype="multipart/form-data">
         <fieldset>
             <legend>Add a user</legend>
             <div class="form-group">
@@ -15,7 +16,7 @@
                 <label for="inputLastName" class="col-lg-2 control-label">Last name</label>
 
                 <div class="col-lg-10">
-                    <input type="text" name="lastName" class="form-control" id="inputLastName" placeholder="Last Name">
+                    <input type="text" name="last_name" class="form-control" id="inputLastName" placeholder="Last Name">
                 </div>
             </div>
             <div class="form-group">
@@ -33,10 +34,25 @@
                 </div>
             </div>
             <div class="form-group">
+                <label for="inputPasswordConfirm" class="col-lg-2 control-label">Password Confirmation</label>
+
+                <div class="col-lg-10">
+                    <input type="password" name="password_confirmation" class="form-control" id="inputPasswordConfirm" placeholder="*****">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="imageThumbnail" class="col-lg-2 control-label">Thumbnail</label>
+
+                <div class="col-lg-10">
+                    <input type="file" class="form-control" name="thumbnail" id="imageThumbnail"/>
+                </div>
+            </div>
+            <div class="form-group">
                 <label for="inputIsAdmin" class="col-lg-2 control-label">Is admin?</label>
+
                 <div class="checkbox col-lg-10">
                     <label>
-                        <input type="checkbox" name="isAdmin" id="inputIsAdmin"> True
+                        <input type="checkbox" name="is_admin" id="inputIsAdmin" value="true"> True
                     </label>
                 </div>
             </div>

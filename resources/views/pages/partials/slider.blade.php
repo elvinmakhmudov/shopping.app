@@ -5,7 +5,4 @@
 		<div>
 			<a href="#"><img src="http://placehold.it/810x320" alt=""></a>
 		</div>
-		<div>
-			<a href="#"><img src="{{ asset('images/42.jpg') }}" alt=""></a>
-		</div>
 	</div>

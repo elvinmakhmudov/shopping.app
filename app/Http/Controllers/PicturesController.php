@@ -72,7 +72,7 @@ class PicturesController extends Controller
         //TODO:when making a validation, make sure 'picture' has been passed, if it is not, redirect back
         if ($this->request->hasFile('picture')) {
             $picture = $this->request->file('picture');
-            $path = public_path() . '/images/' . $category->slug . '/' . $product->id;
+            $path = public_path() . '/content/images/' . $category->slug . '/' . $product->id;
 
             if (!File::exists($path)) {
                 File::makeDirectory($path, 0755, true);
@@ -102,10 +102,6 @@ class PicturesController extends Controller
      */
     public function show($categoryId, $productId, $id)
     {
-//        return 1;
-        $img = Image::make('images/1.jpg');
-        return $img->response();
-        //
     }
 
     /**
@@ -148,7 +144,7 @@ class PicturesController extends Controller
         //TODO:when making a validation, make sure 'picture' has been passed, if it is not, redirect back
         if ($this->request->hasFile('picture')) {
             $picture = $this->request->file('picture');
-            $path = public_path() . '/images/' . $category->slug . '/' . $product->id;
+            $path = public_path() . '/content/images/' . $category->slug . '/' . $product->id;
 
             if (!File::exists($path)) {
                 File::makeDirectory($path, 0755, true);

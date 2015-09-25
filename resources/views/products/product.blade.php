@@ -1,6 +1,13 @@
 <div class="col-lg-5 col-md-5">
     <div class="thumbnail center-block">
-        <img src="{{ asset('images/'.$category->slug.'/'.$product->thumbnail) }}" alt="">
+        {{--<img src="{{ asset('images/'.$category->slug.'/'.$product->thumbnail) }}" alt="">--}}
+        @if(file_exists(public_path().'/content/images/'.$product->categories->first()->slug.'/'.$product->thumbnail))
+            <img src="{{ asset('/content/images/'.$product->categories->first()->slug.'/'.$product->thumbnail) }}"
+                 alt="">
+        @else
+            <img src="{{ asset('/content/default/product_thumbnail.png') }}"
+                 alt="">
+        @endif
     </div>
     @if($pictures)
     <div class="list-inline row center-block subImages">

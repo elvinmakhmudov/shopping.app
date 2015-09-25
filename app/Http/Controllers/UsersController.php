@@ -3,16 +3,21 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Services\Admin\Registrar;
 use App\Shop\Models\User;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
+    protected $registrar;
 
-    public function __construct()
+    public function __construct(Registrar $registrar)
     {
+        $this->registrar = $registrar;
+
         $this->middleware('admin', ['only' => ['index','create' ,'store']]);
     }
+
 
     /**
      * Display a listing of the resource.
@@ -44,19 +49,14 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $name = $request->input('name');
-        $lastName = $request->input('lastName');
-        $email = $request->input('email');
-        $password = $request->input('password');
-        $isAdmin = $request->has('isAdmin') ?: null;
+        $validator = $this->registrar->validator($request->all());
 
-        User::create([
-            'name' => $name,
-            'last_name' => $lastName,
-            'email' => $email,
-            'password' => bcrypt($password),
-            'is_admin' => $isAdmin
-        ]);
+        if ($validator->fails())
+        {
+            return redirect()->back();
+        }
+
+        $this->registrar->create($request->all());
 
         return redirect()->route('users.index');
     }
@@ -69,7 +69,9 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        return view('users.show', compact('user'));
     }
 
     /**
@@ -80,7 +82,9 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        return view('users.edit', compact('user'));
     }
 
     /**
