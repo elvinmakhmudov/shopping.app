@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\File;
 use Validator;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
 
-class Registrar implements RegistrarContract
+class Updaterar
 {
 
     /*j
@@ -19,8 +19,8 @@ class Registrar implements RegistrarContract
         return Validator::make($data, [
             'name' => 'required|max:255|alpha',
             'last_name' => 'required|max:255|alpha',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
+            'email' => 'required|email|max:255',
+            'password' => 'confirmed',
             'is_admin' => 'required|boolean',
             'thumbnail' => 'image|mimes:jpeg,bmp,png,jpg',
         ]);
@@ -30,17 +30,23 @@ class Registrar implements RegistrarContract
      * Create a new user instance after a valid registration.
      *
      * @param  array $data
+     * @param $user
      * @return User
      */
-    public function create(array $data)
+    public function update(array $data, $user)
     {
-        $user = User::create([
+        $user->update([
             'name' => $data['name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
             'is_admin' => $data['is_admin']
         ]);
+        //if the password is sent, save it
+        if (isset($data['password'])) {
+            $user->password = bcrypt($data['password']);
+            $user->save();
+        }
+        //if the thumbnail is sent, make it profile picture
         if (isset($data['thumbnail'])) {
             $thumbnail = $data['thumbnail'];
             $path = public_path() . '/content/profile_pictures/' . $user->id;

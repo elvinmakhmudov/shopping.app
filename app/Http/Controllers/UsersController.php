@@ -4,16 +4,22 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Services\Admin\Registrar;
+use App\Services\Admin\Updaterar;
 use App\Shop\Models\User;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
     protected $registrar;
+    /**
+     * @var Updaterar
+     */
+    private $updaterar;
 
-    public function __construct(Registrar $registrar)
+    public function __construct(Registrar $registrar, Updaterar $updaterar)
     {
         $this->registrar = $registrar;
+        $this->updaterar = $updaterar;
 
         $this->middleware('admin', ['only' => ['index','create' ,'store']]);
     }
@@ -90,12 +96,24 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      *
+     * @param Request $request
      * @param  int $id
      * @return Response
      */
-    public function update($id)
+    public function update(Request $request, $id)
     {
-        //
+        $validator = $this->updaterar->validator($request->all());
+
+        if ($validator->fails())
+        {
+            return redirect()->back()->withErrors('something went wrong');
+        }
+
+        $user = User::findOrFail($id);
+
+        $this->updaterar->update($request->all(), $user);
+
+        return redirect()->route('users.index');
     }
 
     /**
@@ -106,7 +124,11 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $user->delete();
+
+        return redirect()->route('users.index');
     }
 
 }

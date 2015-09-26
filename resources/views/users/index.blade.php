@@ -13,6 +13,7 @@
                 <th>created_at</th>
                 <th>updated_at</th>
                 <th>deleted_at</th>
+                <th>Edit</th>
             </tr>
             </thead>
             <tbody>
@@ -27,6 +28,7 @@
                     <td>{{ $user->created_at }}</td>
                     <td>{{ $user->updated_at }}</td>
                     <td>{{ $user->deleted_at }}</td>
+                    <td><a href="{{ route('users.edit', $user->id) }}">Edit</a></td>
                 </tr>
 
             @endforeach
