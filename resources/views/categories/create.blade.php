@@ -4,6 +4,7 @@
     <form class="form-horizontal" action="{{ route('category.store') }}" method="post">
         <fieldset>
             <legend>Add a category</legend>
+            @include('partials.error')
             <div class="form-group">
                 <label for="inputTitle" class="col-lg-2 control-label">Title</label>
 
@@ -15,8 +16,8 @@
                 <label for="selectParent" class="col-lg-2 control-label">Parent</label>
 
                 <div class="col-lg-10">
-                    <select class="form-control" name="parentId" id="selectParent">
-                        <option value="null" selected>null</option>
+                    <select class="form-control" name="parent_id" id="selectParent">
+                        <option value="" selected>null</option>
                         @foreach($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->title }}</option>
                         @endforeach

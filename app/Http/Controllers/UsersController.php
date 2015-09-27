@@ -59,7 +59,7 @@ class UsersController extends Controller
 
         if ($validator->fails())
         {
-            return redirect()->back();
+            return redirect()->back()->withErrors($validator->errors());
         }
 
         $this->registrar->create($request->all());
@@ -106,7 +106,7 @@ class UsersController extends Controller
 
         if ($validator->fails())
         {
-            return redirect()->back()->withErrors('something went wrong');
+            return redirect()->back()->withErrors($validator->errors());
         }
 
         $user = User::findOrFail($id);

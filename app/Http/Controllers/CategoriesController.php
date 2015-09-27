@@ -4,14 +4,20 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Shop\Models\Category;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
 
-    public function __construct()
+    /**
+     * @var Request
+     */
+    private $request;
+
+    public function __construct(Request $request)
     {
         $this->middleware('admin', ['except' => 'show']);
+        $this->request = $request;
     }
 
     /**
@@ -45,8 +51,12 @@ class CategoriesController extends Controller
      */
     public function store()
     {
-        $title = Request::input('title');
-        $parentId = Request::input('parentId') == "null" ? null : Request::input('parentId');
+        $this->validate($this->request, [
+            'title' => 'required|string', 'parent_id' => 'sometimes|exists:categories,id',
+        ]);
+
+        $title = $this->request->title;
+        $parentId = $this->request->parent_id;
 
         $node = Category::create([
             'title' => $title,
@@ -96,11 +106,14 @@ class CategoriesController extends Controller
      */
     public function update($id)
     {
+        $this->validate($this->request, [
+            'title' => 'required|string', 'parent_id' => 'sometimes|exists:categories,id',
+        ]);
+
         $category = Category::findOrFail($id);
 
-        //if 'null' has been passed set the parent Id to null
-        $category->parent_id = (Request::input('parentId') == "null") ? null : Request::input('parentId');
-        $category->title = Request::input('title') ? Request::input('title') : $category->title;
+        $category->title = $this->request->title;
+        $category->parent_id = $this->request->parent_id;
         $category->save();
 
         return redirect()->route('category.index');

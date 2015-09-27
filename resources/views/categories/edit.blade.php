@@ -8,21 +8,22 @@
             <input type="hidden" name="_method" value="PUT">
             <fieldset>
                 <legend>Edit a category</legend>
+                @include('partials.error')
                 <div class="form-group">
                     <label for="inputTitle" class="col-lg-2 control-label">Title</label>
 
                     <div class="col-lg-10">
                         <input type="text" name="title" class="form-control" id="inputTitle"
-                               placeholder="{{ $category->title }}">
+                               value="{{ $category->title }}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="selectParent" class="col-lg-2 control-label">Parent</label>
 
                     <div class="col-lg-10">
-                        <select class="form-control" name="parentId" id="selectParent">
+                        <select class="form-control" name="parent_id" id="selectParent">
                             @if($category->parent_id == null)
-                                <option value="null" selected>null</option>
+                                <option value="" selected>null</option>
                             @endif
                             @foreach($categories as $parent)
                                 @if($parent->id == $category->parent_id)
