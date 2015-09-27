@@ -9,6 +9,7 @@
             <input type="hidden" name="_method" value="PUT">
             <fieldset>
                 <legend>Edit a product</legend>
+                @include('partials.error')
                 <div class="form-group">
                     <label for="inputName" class="col-lg-2 control-label">Name</label>
 

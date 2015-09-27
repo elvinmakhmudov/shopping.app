@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration {
             $table->string('name', 100)->index();
             $table->string('thumbnail');
             $table->longText('description');
-            $table->float('rating');
+            $table->float('rating')->nullable();
             $table->float('price');
             $table->timestamps();
             $table->softDeletes();

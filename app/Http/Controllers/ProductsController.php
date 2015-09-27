@@ -3,21 +3,30 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Services\Products\Registrar;
+use App\Services\Products\Updaterar;
 use App\Shop\Models\Category;
 use App\Shop\Models\Product;
-use App\Shop\Models\Subcategory;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Input;
 
 class ProductsController extends Controller
 {
 
-    public function __construct(Request $request)
+    /**
+     * @var Registrar
+     */
+    private $registrar;
+    /**
+     * @var Updaterar
+     */
+    private $updaterar;
+
+    public function __construct(Request $request, Registrar $registrar, Updaterar $updaterar)
     {
         $this->middleware('admin', ['except' => 'show']);
         $this->request = $request;
+        $this->registrar = $registrar;
+        $this->updaterar = $updaterar;
     }
 
     /**
@@ -55,37 +64,11 @@ class ProductsController extends Controller
      */
     public function store($categoryId)
     {
+        $this->registrar->validator($this->request);
+
         $category = Category::findOrFail($categoryId);
 
-        $name = $this->request->input('name');
-        $description = $this->request->input('description');
-        $rating = $this->request->input('rating');
-        $price = $this->request->input('price');
-        $thumbnailName = null;
-
-        if ($this->request->hasFile('thumbnail')) {
-            $thumbnail = $this->request->file('thumbnail');
-            $path = public_path() . '/content/images/' . $category->slug;
-
-            if (!File::exists($path)) {
-                File::makeDirectory($path, 0755, true);
-            }
-
-            $thumbnailName = time() . '-' . $thumbnail->getClientOriginalName();
-
-            $thumbnail->move($path, $thumbnailName);
-        }
-
-
-        $product = Product::create([
-            'name' => $name,
-            'description' => $description,
-            'rating' => $rating,
-            'price' => $price,
-            'thumbnail' => $thumbnailName
-        ]);
-
-        $category->products()->save($product);
+        $this->registrar->create($this->request->all(), $category);
 
         return redirect()->route('category.products.index', $category->id);
     }
@@ -137,41 +120,13 @@ class ProductsController extends Controller
      */
     public function update($categoryId, $productId)
     {
+        $this->updaterar->validator($this->request);
+
         $category = Category::findOrFail($categoryId);
 
         $product = Product::findOrFail($productId);
 
-        $thumbnailName = $product->thumbnail;
-
-        if ($this->request->hasFile('thumbnail')) {
-            $thumbnail = $this->request->file('thumbnail');
-            $path = public_path() . '/content/images/' . $category->slug;
-
-            if (!File::exists($path)) {
-                File::makeDirectory($path, 0755, true);
-            }
-
-            $thumbnailName = time() . '-' . $thumbnail->getClientOriginalName();
-
-            $thumbnail->move($path, $thumbnailName);
-        }
-
-
-        $product->fill([
-            'name' => $this->request->input('name'),
-            'description' => $this->request->input('description'),
-            'price' => $this->request->input('price'),
-            'rating' => $this->request->input('rating'),
-            'thumbnail' => $thumbnailName
-        ])->save();
-
-        //if new category id exists change old category to the new one
-        if (Category::findOrFail($this->request->input('newCategoryId'))) {
-            //delete old category
-            $product->categories()->detach($category->id);
-            //add new one
-            $product->categories()->attach($this->request->input('newCategoryId'));
-        }
+        $this->updaterar->update($this->request->all(), $category, $product);
 
         return redirect()->route('category.products.index', $category->id);
     }
