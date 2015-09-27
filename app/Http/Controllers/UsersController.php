@@ -15,11 +15,16 @@ class UsersController extends Controller
      * @var Updaterar
      */
     private $updaterar;
+    /**
+     * @var Request
+     */
+    private $request;
 
-    public function __construct(Registrar $registrar, Updaterar $updaterar)
+    public function __construct(Registrar $registrar, Updaterar $updaterar, Request $request)
     {
         $this->registrar = $registrar;
         $this->updaterar = $updaterar;
+        $this->request = $request;
 
         $this->middleware('admin', ['only' => ['index','create' ,'store']]);
     }
@@ -50,19 +55,13 @@ class UsersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        $validator = $this->registrar->validator($request->all());
+        $this->registrar->validator($this->request);
 
-        if ($validator->fails())
-        {
-            return redirect()->back()->withErrors($validator->errors());
-        }
-
-        $this->registrar->create($request->all());
+        $this->registrar->create($this->request->all());
 
         return redirect()->route('users.index');
     }
@@ -102,12 +101,7 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = $this->updaterar->validator($request->all());
-
-        if ($validator->fails())
-        {
-            return redirect()->back()->withErrors($validator->errors());
-        }
+        $this->updaterar->validator($this->request);
 
         $user = User::findOrFail($id);
 

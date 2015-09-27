@@ -1,12 +1,14 @@
 <?php namespace App\Services\Admin;
 
 use App\Shop\Models\User;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Validator;
-use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
 
 class Updaterar
 {
+    use ValidatesRequests;
 
     /*j
      * Get a validator for an incoming registration request.
@@ -14,15 +16,15 @@ class Updaterar
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    public function validator(array $data)
+    public function validator(Request $request)
     {
-        return Validator::make($data, [
-            'name' => 'required|max:255|alpha',
-            'last_name' => 'required|max:255|alpha',
-            'email' => 'required|email|max:255',
-            'password' => 'confirmed',
-            'is_admin' => 'required|boolean',
-            'thumbnail' => 'image|mimes:jpeg,bmp,png,jpg',
+        return $this->validate($request, [
+            'name' => 'sometimes|max:255|alpha',
+            'last_name' => 'sometimes|max:255|alpha',
+            'email' => 'sometimes|unique:users,email|max:255',
+            'password' => 'sometimes|confirmed',
+            'is_admin' => 'sometimes|boolean',
+            'thumbnail' => 'sometimes|image|mimes:jpeg,bmp,png,jpg',
         ]);
     }
 
@@ -33,37 +35,52 @@ class Updaterar
      * @param $user
      * @return User
      */
-    public function update(array $data, $user)
+    public function update(array $data, User $user)
     {
-        $user->update([
-            'name' => $data['name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'is_admin' => $data['is_admin']
-        ]);
-        //if the password is sent, save it
-        if (isset($data['password'])) {
-            $user->password = bcrypt($data['password']);
-            $user->save();
-        }
-        //if the thumbnail is sent, make it profile picture
-        if (isset($data['thumbnail'])) {
-            $thumbnail = $data['thumbnail'];
-            $path = public_path() . '/content/profile_pictures/' . $user->id;
-
-            if (!File::exists($path)) {
-                File::makeDirectory($path, 0755, true);
+        $updateArray = [];
+        foreach ($data as $key => $value) {
+            if ($value !== '') {
+                switch ($key) {
+                    case 'name':
+                    case 'last_name':
+                    case 'email':
+                    case 'is_admin':
+                        $updateArray[$key] = $value;
+                        break;
+                    case 'password':
+                        $updateArray[$key] = bcrypt($value);
+                        break;
+                    case 'thumbnail':
+                        $updateArray[$key] = $this->extractThumbnail($value, $user);
+                        break;
+                }
             }
-
-            $thumbnailName = time() . '-' . $thumbnail->getClientOriginalName();
-
-            $thumbnail->move($path, $thumbnailName);
-
-            $user->thumbnail = $thumbnailName;
-            $user->save();
         }
+
+        $user->update($updateArray);
 
         return $user;
     }
 
+    /**
+     * Move the thumbnail to the specific place
+     *
+     * @param $thumbnail
+     * @param User $user
+     * @return string
+     */
+    private function extractThumbnail($thumbnail, User $user)
+    {
+        $path = public_path() . '/content/profile_pictures/' . $user->id;
+
+        if (!File::exists($path)) {
+            File::makeDirectory($path, 0755, true);
+        }
+
+        $thumbnailName = time() . '-' . $thumbnail->getClientOriginalName();
+
+        $thumbnail->move($path, $thumbnailName);
+
+        return $thumbnailName;
+    }
 }

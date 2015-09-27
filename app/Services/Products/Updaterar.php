@@ -11,7 +11,7 @@ class Updaterar
 {
     use ValidatesRequests;
 
-    /*j
+    /*
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -19,7 +19,7 @@ class Updaterar
      */
     public function validator(Request $request)
     {
-        $this->validate($request, [
+        return $this->validate($request, [
             'name' => 'sometimes|max:255|string',
             'description' => 'sometimes|string',
             'rating' => 'sometimes|numeric|between:1,5',
