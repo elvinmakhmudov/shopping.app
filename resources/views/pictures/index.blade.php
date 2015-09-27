@@ -21,7 +21,7 @@
                     <tr>
                         <td>{{ $picture->id }}</td>
                         <td>
-                            <a href="{{ asset('images/'.$category->slug.'/'.$product->id.'/'.$picture->filename) }}">{{ $picture->filename }}</a>
+                            <a href="{{ asset('/content/images/'.$category->slug.'/'.$product->id.'/'.$picture->filename) }}">{{ $picture->filename }}</a>
                         </td>
                         <td>{{ $picture->product_id }}</td>
                         <td>{{ $picture->created_at }}</td>

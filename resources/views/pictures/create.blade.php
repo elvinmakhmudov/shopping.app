@@ -8,11 +8,12 @@
               method="post" enctype="multipart/form-data">
             <fieldset>
                 <legend>Add a picture</legend>
+                @include('partials.error')
                 <div class="form-group">
                     <label for="selectParent" class="col-lg-2 control-label">Product</label>
 
                     <div class="col-lg-10">
-                        <select class="form-control" name="newProductId" id="selectParent">
+                        <select class="form-control" name="new_product_id" id="selectParent">
                             @if($category->products)
                                 @foreach($category->products as $possibleProduct)
                                     @if($possibleProduct->id == $product->id)

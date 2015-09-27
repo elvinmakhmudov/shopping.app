@@ -13,7 +13,7 @@
     <div class="list-inline row center-block subImages">
         @foreach($pictures as $picture)
             <div class="subImage">
-                <img src="{{ asset('images/'.$category->slug.'/'.$product->id.'/'.$picture->filename) }}" >
+                <img src="{{ asset('/content/images/'.$category->slug.'/'.$product->id.'/'.$picture->filename) }}" >
             </div>
         @endforeach
     </div>

@@ -3,6 +3,8 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Services\Pictures\Registrar;
+use App\Services\Pictures\Updaterar;
 use App\Shop\Models\Category;
 use App\Shop\Models\Picture;
 use App\Shop\Models\Product;
@@ -13,10 +15,21 @@ use Intervention\Image\Facades\Image;
 class PicturesController extends Controller
 {
 
-    public function __construct(Request $request)
+    /**
+     * @var Registrar
+     */
+    private $registrar;
+    /**
+     * @var Updaterar
+     */
+    private $updaterar;
+
+    public function __construct(Request $request, Registrar $registrar, Updaterar $updaterar)
     {
         $this->middleware('admin', ['except' => 'show']);
         $this->request = $request;
+        $this->registrar = $registrar;
+        $this->updaterar = $updaterar;
     }
 
 
@@ -49,7 +62,7 @@ class PicturesController extends Controller
     {
         $category = Category::with('products')->findOrFail($categoryId);
 
-        $product = $category->products()->find($productId);
+        $product = $category->products()->findOrFail($productId);
 
         return view('pictures.create', compact('category', 'product'));
     }
@@ -63,31 +76,13 @@ class PicturesController extends Controller
      */
     public function store($categoryId, $productId)
     {
+        $this->registrar->validator($this->request);
+
         $category = Category::with('products')->findOrFail($categoryId);
 
-        $productId = $this->request->input('newProductId') ?: $productId;
+        $product = $category->products()->findOrFail($productId);
 
-        $product = $category->products()->find($productId);
-
-        //TODO:when making a validation, make sure 'picture' has been passed, if it is not, redirect back
-        if ($this->request->hasFile('picture')) {
-            $picture = $this->request->file('picture');
-            $path = public_path() . '/content/images/' . $category->slug . '/' . $product->id;
-
-            if (!File::exists($path)) {
-                File::makeDirectory($path, 0755, true);
-            }
-
-            $pictureName = time() . '-' . $picture->getClientOriginalName();
-
-            $picture->move($path, $pictureName);
-
-            $picture = Picture::create([
-                'filename' => $pictureName,
-            ]);
-
-            $picture->product()->associate($product)->save();
-        }
+        $this->registrar->create($this->request->all(), $category, $product);
 
         return redirect()->route('category.products.pictures.index', compact('categoryId', 'productId'));
     }
@@ -116,9 +111,9 @@ class PicturesController extends Controller
     {
         $category = Category::findOrFail($categoryId);
 
-        $product = $category->products()->find($productId);
+        $product = $category->products()->findOrFail($productId);
 
-        $picture = $product->pictures()->find($id);
+        $picture = $product->pictures()->findOrFail($id);
 
         return view('pictures.edit', compact('category', 'product', 'picture'));
     }
@@ -133,36 +128,15 @@ class PicturesController extends Controller
      */
     public function update($categoryId, $productId, $id)
     {
+        $this->updaterar->validator($this->request);
+
         $category = Category::with('products')->findOrFail($categoryId);
 
-        $productId = $this->request->input('newProductId') ?: $productId;
+        $product = $category->products()->findOrFail($productId);
 
-        $product = $category->products()->find($productId);
+        $picture = $product->pictures()->find($id);
 
-        $pictureModel = $product->pictures()->where('id', $id)->firstOrFail();
-
-        //TODO:when making a validation, make sure 'picture' has been passed, if it is not, redirect back
-        if ($this->request->hasFile('picture')) {
-            $picture = $this->request->file('picture');
-            $path = public_path() . '/content/images/' . $category->slug . '/' . $product->id;
-
-            if (!File::exists($path)) {
-                File::makeDirectory($path, 0755, true);
-            }
-
-            $pictureName = time() . '-' . $picture->getClientOriginalName();
-
-            $picture->move($path, $pictureName);
-
-            //delete old pic
-            File::delete($path . '/' . $pictureModel->filename);
-
-            $picture = $pictureModel->fill([
-                'filename' => $pictureName,
-            ])->save();
-
-            $pictureModel->product()->associate($product)->save();
-        }
+        $this->updaterar->update($this->request->all(), $category, $product, $picture);
 
         return redirect()->route('category.products.pictures.index', compact('categoryId', 'productId'));
     }
