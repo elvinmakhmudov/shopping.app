@@ -44,7 +44,7 @@ class PicturesController extends Controller
     {
         $category = Category::findOrFail($categoryId);
 
-        $product = $category->products()->findOrFail($productId);
+        $product = Product::findOrFail($productId);
 
         $pictures = $product->pictures()->withTrashed()->get();
 
@@ -62,7 +62,7 @@ class PicturesController extends Controller
     {
         $category = Category::with('products')->findOrFail($categoryId);
 
-        $product = $category->products()->findOrFail($productId);
+        $product = Product::findOrFail($productId);
 
         return view('pictures.create', compact('category', 'product'));
     }
@@ -80,7 +80,7 @@ class PicturesController extends Controller
 
         $category = Category::with('products')->findOrFail($categoryId);
 
-        $product = $category->products()->findOrFail($productId);
+        $product = Product::findOrFail($productId);
 
         $this->registrar->create($this->request->all(), $category, $product);
 
@@ -111,9 +111,9 @@ class PicturesController extends Controller
     {
         $category = Category::findOrFail($categoryId);
 
-        $product = $category->products()->findOrFail($productId);
+        $product = Product::findOrFail($productId);
 
-        $picture = $product->pictures()->findOrFail($id);
+        $picture = Picture::findOrFail($id);
 
         return view('pictures.edit', compact('category', 'product', 'picture'));
     }
@@ -132,7 +132,7 @@ class PicturesController extends Controller
 
         $category = Category::with('products')->findOrFail($categoryId);
 
-        $product = $category->products()->findOrFail($productId);
+        $product = Product::findOrFail($productId);
 
         $picture = $product->pictures()->find($id);
 
@@ -153,9 +153,9 @@ class PicturesController extends Controller
     {
         $category = Category::findOrFail($categoryId);
 
-        $product = $category->products()->findOrFail($productId);
+        $product = Product::findOrFail($productId);
 
-        $picture = $product->pictures()->findOrFail($id);
+        $picture = Picture::findOrFail($id);
 
         $picture->delete();
 

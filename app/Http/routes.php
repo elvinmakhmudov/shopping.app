@@ -27,7 +27,7 @@ Route::controllers([
 ]);
 
 Route::resource('users', 'UsersController');
-
+Route::resource('users.orders', 'OrdersController');
 
 Route::resource('category', 'CategoriesController');
 Route::resource('category.products', 'ProductsController');

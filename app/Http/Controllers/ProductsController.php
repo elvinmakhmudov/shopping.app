@@ -38,6 +38,7 @@ class ProductsController extends Controller
     public function index($id)
     {
         $category = Category::withTrashed()->findOrFail($id);
+
         $products = $category->products()->withTrashed()->get();
 
         return view('products.index', compact('products', 'category'));
@@ -84,12 +85,11 @@ class ProductsController extends Controller
     {
         $category = Category::findBySlugOrFail($categorySlug);
 
-        $product = $category->products()->find($productId);
-
-        $pictures = $product->pictures;
+        $product = Product::findOrFail($productId);
+//        dd($product);
 
         //write a logic to show a specific product
-        return view('products.show', compact('category', 'product', 'pictures'));
+        return view('products.show', compact('category', 'product'));
     }
 
     /**
