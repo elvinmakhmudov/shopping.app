@@ -4,21 +4,60 @@
 
     <div class="col-lg-8">
 
-        <form class="form-horizontal" action="{{ route('category.store') }}" method="post">
+        <form class="form-horizontal" action="{{ route('users.orders.store') }}" method="post">
             <fieldset>
                 <legend>Buy a product</legend>
                 @include('partials.error')
                 <div class="form-group">
-                    <label for="inputTitle" class="col-lg-2 control-label">Title</label>
+                    <label for="inputName" class="col-lg-2 control-label">Name</label>
 
                     <div class="col-lg-10">
-                        <input type="text" name="title" class="form-control" id="inputTitle" placeholder="Title">
+                        <input type="text" name="name" class="form-control" id="inputName" placeholder="Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputLastName" class="col-lg-2 control-label">Last name</label>
+
+                    <div class="col-lg-10">
+                        <input type="text" name="last_name" class="form-control" id="inputLastName"
+                               placeholder="Last name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+
+                    <div class="col-lg-10">
+                        <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputNumber" class="col-lg-2 control-label">Telephone</label>
+
+                    <div class="col-lg-10">
+                        <input type="text" name="number" class="form-control" id="inputNumber"
+                               placeholder="Telephone number" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress" class="col-lg-2 control-label">Address</label>
+
+                    <div class="col-lg-10">
+                        <input type="text" name="address" class="form-control" id="inputNumber"
+                               placeholder="Shipping Address">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputMessage" class="col-lg-2 control-label">Message</label>
+
+                    <div class="col-lg-10">
+                        <input type="text" name="address" class="form-control" id="inputMessage"
+                               placeholder="Additional message">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
                         <button class="btn btn-default">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Submit
+                        <button type="submit" class="btn btn-primary">Order
                             <div class="ripple-wrapper"></div>
                         </button>
                     </div>
@@ -30,7 +69,6 @@
     </div>
     <div class="col-lg-4">
         @include('products.product', $product)
-
     </div>
 
 

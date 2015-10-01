@@ -23,7 +23,7 @@ class OrdersController extends Controller
 
     public function __construct(Request $request, Guard $auth)
     {
-        $this->middleware('admin', ['except' => 'show']);
+        $this->middleware('auth', ['except' => 'create']);
         $this->request = $request;
         $this->auth = $auth;
     }
