@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Services\Orders\Registrar;
 use App\Shop\Models\Product;
 use App\Shop\Models\User;
 use Illuminate\Contracts\Auth\Guard;
@@ -20,12 +21,17 @@ class OrdersController extends Controller
      * @var Guard
      */
     private $auth;
+    /**
+     * @var Registrar
+     */
+    private $registrar;
 
-    public function __construct(Request $request, Guard $auth)
+    public function __construct(Request $request, Guard $auth, Registrar $registrar)
     {
         $this->middleware('auth', ['except' => 'create']);
         $this->request = $request;
         $this->auth = $auth;
+        $this->registrar = $registrar;
     }
 
     /**
@@ -64,7 +70,9 @@ class OrdersController extends Controller
      */
     public function store()
     {
-        //
+        //validate the input
+        $this->registrar->validator($this->request);
+        //store the order
     }
 
     /**

@@ -35,7 +35,7 @@
 
                     <div class="col-lg-10">
                         <input type="text" name="number" class="form-control" id="inputNumber"
-                               placeholder="Telephone number" required>
+                               placeholder="Telephone number">
                     </div>
                 </div>
                 <div class="form-group">
@@ -54,6 +54,7 @@
                                placeholder="Additional message">
                     </div>
                 </div>
+                <input type="hidden" name="product_id" value="{{ $product->id }}"/>
                 <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
                         <button class="btn btn-default">Cancel</button>
