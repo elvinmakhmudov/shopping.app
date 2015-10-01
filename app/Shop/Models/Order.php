@@ -7,7 +7,7 @@ class Order extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['message'];
+    protected $fillable = ['name', 'last_name', 'email', 'telephone', 'address', 'message'];
 
     /**
      * An order belongs to one user

@@ -1,14 +1,28 @@
 <?php namespace App\Services\Orders;
 
+use App\Shop\Models\Order;
+use App\Shop\Models\Product;
 use Illuminate\Http\Request;
 use App\Shop\Models\User;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\File;
 use Validator;
+use Illuminate\Contracts\Auth\Guard;
 
 class Registrar
 {
     use ValidatesRequests;
+
+    /**
+     * @var Guard
+     */
+    private $auth;
+
+    public function __construct(Guard $auth)
+    {
+
+        $this->auth = $auth;
+    }
 
     /*j
      * Get a validator for an incoming registration request.
@@ -32,45 +46,22 @@ class Registrar
      * Create a new user instance after a valid registration.
      *
      * @param  array $data
+     * @param Product $product
      * @return User
      */
-    public function create(array $data)
+    public function create(array $data, Product $product)
     {
-        $user = User::create([
+        $order = Order::create([
             'name' => $data['name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-            'is_admin' => $data['is_admin']
+            'telephone' => $data['telephone'],
+            'address' => $data['address'],
+            'message' => $data['message'],
         ]);
 
-        if (isset($data['thumbnail'])) {
-            $this->extractThumbnail($data['thumbnail'], $user);
-        }
+        $order->product()->associate($product)->save();
 
-        return $user;
+        return $order;
     }
-
-    /**
-     * Extract the thumbnail
-     *
-     * @param $thumbnail
-     * @param User $user
-     */
-    public function extractThumbnail($thumbnail, User $user)
-    {
-        $path = public_path() . '/content/profile_pictures/' . $user->id;
-
-        if (!File::exists($path)) {
-            File::makeDirectory($path, 0755, true);
-        }
-
-        $thumbnailName = time() . '-' . $thumbnail->getClientOriginalName();
-
-        $thumbnail->move($path, $thumbnailName);
-
-        $user->thumbnail = $thumbnailName;
-        $user->save();
-    }
-
 }

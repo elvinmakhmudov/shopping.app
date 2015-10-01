@@ -34,7 +34,7 @@
                     <label for="inputNumber" class="col-lg-2 control-label">Telephone</label>
 
                     <div class="col-lg-10">
-                        <input type="text" name="number" class="form-control" id="inputNumber"
+                        <input type="text" name="telephone" class="form-control" id="inputNumber"
                                placeholder="Telephone number">
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                     <label for="inputMessage" class="col-lg-2 control-label">Message</label>
 
                     <div class="col-lg-10">
-                        <input type="text" name="address" class="form-control" id="inputMessage"
+                        <input type="text" name="message" class="form-control" id="inputMessage"
                                placeholder="Additional message">
                     </div>
                 </div>

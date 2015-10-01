@@ -72,7 +72,12 @@ class OrdersController extends Controller
     {
         //validate the input
         $this->registrar->validator($this->request);
+
+        //fetch the product
+        $product = Product::findOrFail($this->request->input('product_id'));
+
         //store the order
+        $this->registrar->create($this->request->all(), $product);
     }
 
     /**
