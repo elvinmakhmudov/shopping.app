@@ -27,7 +27,9 @@ Route::controllers([
 ]);
 
 Route::resource('users', 'UsersController');
-Route::resource('users.orders', 'OrdersController');
+
+Route::get('orders/success', [ 'as' => 'orders.success', 'uses' => 'OrdersController@success']);
+Route::resource('orders', 'OrdersController');
 
 Route::resource('category', 'CategoriesController');
 Route::resource('category.products', 'ProductsController');

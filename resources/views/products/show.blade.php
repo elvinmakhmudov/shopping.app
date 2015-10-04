@@ -15,11 +15,11 @@
             <a href="{{route('category.products.show', [$product->categories->first()->slug, $product->id])}}">{{ $product->name }}</a>
         </h3>
 
-        <a href="{{ route('users.orders.create', [Auth::id(), 'productId' => $product->id]) }}"
+        <a href="{{ route('orders.create', ['productId' => $product->id]) }}"
            class="btn btn-success btn-raised">Buy</a>
 
         <div class="ratings">
-            <h2>$24.99</h2>
+            <h2>{{ $product->price }}$</h2>
             @for($i = 0; $i < floor($product->rating); $i++)
                 <span class="glyphicon glyphicon-star"></span>
             @endfor

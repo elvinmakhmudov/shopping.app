@@ -34,10 +34,10 @@ class Registrar
         return $this->validate($request, [
             'name' => 'required|max:255|alpha',
             'last_name' => 'required|max:255|alpha',
-            'email' => 'required|email|max:255|unique:users',
+            'email' => 'required|email|max:255',
             'telephone' => 'required|string',
             'address' => 'required|string|max:255',
-            'message' => 'required|string',
+            'message' => 'string',
             'product_id' => 'required|exists:products,id',
         ]);
     }
@@ -47,9 +47,10 @@ class Registrar
      *
      * @param  array $data
      * @param Product $product
+     * @param $user
      * @return User
      */
-    public function create(array $data, Product $product)
+    public function create(array $data, Product $product, $user)
     {
         $order = Order::create([
             'name' => $data['name'],
@@ -59,6 +60,11 @@ class Registrar
             'address' => $data['address'],
             'message' => $data['message'],
         ]);
+
+        //if signed in associate with that user
+        if (isset($user)) {
+            $order->user()->associate($user)->save();
+        }
 
         $order->product()->associate($product)->save();
 

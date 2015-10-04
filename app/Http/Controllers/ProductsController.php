@@ -86,7 +86,6 @@ class ProductsController extends Controller
         $category = Category::findBySlugOrFail($categorySlug);
 
         $product = Product::findOrFail($productId);
-//        dd($product);
 
         //write a logic to show a specific product
         return view('products.show', compact('category', 'product'));

@@ -33,6 +33,7 @@
                     @if(Auth::user()->is_admin)
                         <li><a href="{{ route('admin_path') }}">Admin Panel</a></li>
                     @endif
+                        <li><a href="{{ route('orders.index') }}">Orders</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                            aria-expanded="false">{{ Auth::user()->name }} <b class="caret"></b></a>

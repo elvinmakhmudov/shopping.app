@@ -5,10 +5,9 @@ use App\Http\Controllers\Controller;
 
 use App\Services\Orders\Registrar;
 use App\Shop\Models\Product;
-use App\Shop\Models\User;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class OrdersController extends Controller
 {
@@ -28,7 +27,7 @@ class OrdersController extends Controller
 
     public function __construct(Request $request, Guard $auth, Registrar $registrar)
     {
-        $this->middleware('auth', ['except' => 'create']);
+        $this->middleware('auth', ['except' => ['create', 'store']]);
         $this->request = $request;
         $this->auth = $auth;
         $this->registrar = $registrar;
@@ -41,26 +40,26 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        //
+        $orders = $this->auth->user()->orders()->orderBy('created_at', 'desc')->get();
+
+        return view('orders.index', compact('orders'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @param $userId
      * @return Response
      */
-    public function create($userId)
+    public function create()
     {
-        //check if the authenticated user is the one who sent the request
-        if ((int)$userId !== $this->auth->id()) {
-            return abort(404);
+        if ($this->auth->check()) {
+            $user = $this->auth->user();
         }
-        //create the order
+
         $product = Product::findOrFail($this->request->get('productId'));
 
         //return to the view
-        return view('orders.create', compact('product'));
+        return view('orders.create', compact('product', 'user'));
     }
 
     /**
@@ -77,7 +76,12 @@ class OrdersController extends Controller
         $product = Product::findOrFail($this->request->input('product_id'));
 
         //store the order
-        $this->registrar->create($this->request->all(), $product);
+        $this->registrar->create($this->request->all(), $product, $this->auth->user());
+
+        //to stop form from resubmitting
+        Session::put('_token', sha1(microtime()));
+
+        return redirect()->route('orders.success', ['productId' => $product->id]);
     }
 
     /**
@@ -124,4 +128,18 @@ class OrdersController extends Controller
         //
     }
 
+    /**
+     * If it succeded
+     *
+     * @return \Illuminate\View\View
+     */
+    public function success()
+    {
+        $product = Product::findOrFail($this->request->input('productId'));
+
+        //get the user
+        $user = $this->auth->user();
+
+        return view('orders.success', compact('product', 'user'));
+    }
 }

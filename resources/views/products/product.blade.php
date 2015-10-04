@@ -1,6 +1,4 @@
 <div class="thumbnail center-block">
-{{--    {{ dd($product) }}--}}
-
     @if(file_exists(public_path().'/content/images/'.$product->categories->first()->slug.'/'.$product->thumbnail))
         <img src="{{ asset('/content/images/'.$product->categories->first()->slug.'/'.$product->thumbnail) }}"
              alt="">
