@@ -29,7 +29,7 @@ Route::controllers([
 Route::resource('users', 'UsersController');
 
 Route::get('orders/success', [ 'as' => 'orders.success', 'uses' => 'OrdersController@success']);
-Route::resource('orders', 'OrdersController');
+Route::resource('orders', 'OrdersController', ['except' => ['edit','destroy','update']]);
 
 Route::resource('category', 'CategoriesController');
 Route::resource('category.products', 'ProductsController');

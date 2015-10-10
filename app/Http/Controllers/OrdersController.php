@@ -92,18 +92,9 @@ class OrdersController extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        $order = $this->auth->user()->orders()->findOrFail($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
+        return view('orders.show', compact('order'));
     }
 
     /**

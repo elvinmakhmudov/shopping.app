@@ -18,7 +18,9 @@
                         <td>
                             <a href="{{ route('category.products.show', [ $order->product->categories()->first()->slug, $order->product->id]) }}">{{ $order->product->name }}</a>
                         </td>
-                        <td>{{ $order->created_at }}</td>
+                        <td>
+                            <a href="{{ route('orders.show', [ $order->id ]) }}">{{ $order->created_at }}</a>
+                        </td>
                     </tr>
 
                 @endforeach
