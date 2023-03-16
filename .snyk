@@ -1,0 +1,14 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.25.0
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:lodash:20180130':
+    - laravel-elixir > gulp-phpspec > lodash:
+        patched: '2023-03-16T16:06:42.491Z'
+    - laravel-elixir > babelify > babel-core > babel-plugin-proto-to-assign > lodash:
+        patched: '2023-03-16T16:06:42.491Z'
+    - laravel-elixir > gulp-babel > babel-core > babel-plugin-proto-to-assign > lodash:
+        patched: '2023-03-16T16:06:42.491Z'
+    - laravel-elixir > vueify > babel > babel-core > babel-plugin-proto-to-assign > lodash:
+        patched: '2023-03-16T16:06:42.491Z'
